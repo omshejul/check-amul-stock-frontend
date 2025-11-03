@@ -121,6 +121,18 @@ export default function SubscriptionsList({
     }
   };
 
+  const formatInterval = (minutes: number): string => {
+    if (minutes === 60) return "1hr";
+    if (minutes === 360) return "6hr";
+    if (minutes === 720) return "12hr";
+    if (minutes === 1440) return "24hr";
+    if (minutes >= 60) {
+      const hours = minutes / 60;
+      return `${hours}hr`;
+    }
+    return `${minutes}min`;
+  };
+
   if (loading) {
     return (
       <Card className="w-full">
@@ -180,7 +192,8 @@ export default function SubscriptionsList({
                             </Badge>
                             <Badge variant="outline">
                               <Clock className="h-3 w-3 mr-1" />
-                              Every {subscription.interval_minutes} min
+                              Every{" "}
+                              {formatInterval(subscription.interval_minutes)}
                             </Badge>
                           </div>
 
