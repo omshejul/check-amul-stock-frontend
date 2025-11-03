@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { stockCheckerAPI } from "@/lib/services/stock-checker-api";
 import { Subscription } from "@/types/stock-checker";
+import { formatDateTime } from "@/lib/utils";
 import {
   AlertCircle,
   Loader2,
@@ -132,22 +133,6 @@ export default function SubscriptionsList({
       return `${hours}hr`;
     }
     return `${minutes}min`;
-  };
-
-  const formatDateTime = (dateString: string): string => {
-    const date = new Date(dateString);
-    const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-    return new Intl.DateTimeFormat("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      timeZone: userTimezone,
-      timeZoneName: "short",
-    }).format(date);
   };
 
   if (loading) {
