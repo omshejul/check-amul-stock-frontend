@@ -33,9 +33,87 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Amul Stock Checker",
+  title: {
+    default: "Amul Stock Checker - Monitor Product Availability",
+    template: "%s | Amul Stock Checker",
+  },
   description:
-    "Monitor Amul product stock availability and get notified when products are back in stock",
+    "Monitor Amul product stock availability and get instant WhatsApp notifications when products are back in stock. Built with Next.js, NextAuth, and shadcn/ui.",
+  keywords: [
+    "Amul",
+    "stock checker",
+    "stock monitor",
+    "product availability",
+    "WhatsApp notifications",
+    "stock alerts",
+    "Amul products",
+    "inventory tracker",
+    "Next.js",
+    "open source",
+  ],
+  authors: [{ name: "Om Shejul", url: "https://github.com/omshejul" }],
+  creator: "Om Shejul",
+  publisher: "Om Shejul",
+  applicationName: "Amul Stock Checker",
+  metadataBase: new URL("https://amul.omshejul.com"),
+  icons: {
+    icon: [
+      { url: "/favicon.ico", type: "image/x-icon" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicon-64x64.png", sizes: "64x64", type: "image/png" },
+      { url: "/favicon-128x128.png", sizes: "128x128", type: "image/png" },
+      { url: "/favicon-256x256.png", sizes: "256x256", type: "image/png" },
+      { url: "/favicon-512x512.png", sizes: "512x512", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+      {
+        url: "/apple-touch-icon-precomposed.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+    ],
+  },
+  openGraph: {
+    title: "Amul Stock Checker - Monitor Product Availability",
+    description:
+      "Get instant WhatsApp notifications when Amul products are back in stock. Free and open source.",
+    type: "website",
+    url: "https://amul.omshejul.com",
+    siteName: "Amul Stock Checker",
+    images: [
+      {
+        url: "/screenshots/app-preview.png",
+        width: 2000,
+        height: 1468,
+        alt: "Amul Stock Checker App Preview",
+      },
+    ],
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Amul Stock Checker - Monitor Product Availability",
+    description:
+      "Get instant WhatsApp notifications when Amul products are back in stock. Free and open source.",
+    images: ["/screenshots/app-preview.png"],
+    creator: "@omshejul",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  category: "technology",
 };
 
 export default function RootLayout({
