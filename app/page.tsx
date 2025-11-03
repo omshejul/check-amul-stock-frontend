@@ -15,7 +15,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 
 export default function Home() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const handleSubscriptionCreated = () => {
@@ -31,9 +31,9 @@ export default function Home() {
             Amul Stock Checker
           </h1>
           <p className="text-lg text-muted-foreground sm:text-xl">
-            Never miss out on your favorite Amul products again. Get instant WhatsApp
-            notifications when out-of-stock items become available for your
-            delivery pincode.
+            Never miss out on your favorite Amul products again. Get instant
+            WhatsApp notifications when out-of-stock items become available for
+            your delivery pincode.
           </p>
         </div>
 
@@ -72,7 +72,8 @@ export default function Home() {
                 </div>
                 <h3 className="font-semibold">Get Notified</h3>
                 <p className="text-sm text-muted-foreground">
-                  Receive instant WhatsApp alerts when the product is back in stock
+                  Receive instant WhatsApp alerts when the product is back in
+                  stock
                 </p>
               </div>
             </div>

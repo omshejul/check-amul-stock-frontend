@@ -3,13 +3,13 @@ import { NextRequest, NextResponse } from "next/server";
 const BACKEND_API_URL = process.env.BACKEND_API_URL;
 const BACKEND_API_BEARER_TOKEN = process.env.BACKEND_API_BEARER_TOKEN;
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     // Validate environment variables
     if (!BACKEND_API_URL || !BACKEND_API_BEARER_TOKEN) {
       return NextResponse.json(
         { status: "error", message: "Server configuration error" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
     const response = await fetch(`${BACKEND_API_URL}/health`, {
       method: "GET",
       headers: {
-        "Authorization": `Bearer ${BACKEND_API_BEARER_TOKEN}`,
+        Authorization: `Bearer ${BACKEND_API_BEARER_TOKEN}`,
       },
     });
 
@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
     if (!response.ok) {
       return NextResponse.json(
         { status: "error", message: "Backend health check failed" },
-        { status: response.status }
+        { status: response.status },
       );
     }
 
@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
     console.error("Error checking health:", error);
     return NextResponse.json(
       { status: "error", message: "Failed to connect to backend" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

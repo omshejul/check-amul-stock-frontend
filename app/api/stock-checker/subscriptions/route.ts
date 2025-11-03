@@ -5,15 +5,12 @@ import { authOptions } from "@/lib/auth";
 const BACKEND_API_URL = process.env.BACKEND_API_URL;
 const BACKEND_API_BEARER_TOKEN = process.env.BACKEND_API_BEARER_TOKEN;
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
-      return NextResponse.json(
-        { error: "Unauthorized" },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     // Validate environment variables
@@ -21,7 +18,7 @@ export async function GET(request: NextRequest) {
       console.error("Missing required environment variables");
       return NextResponse.json(
         { error: "Server configuration error" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -32,9 +29,9 @@ export async function GET(request: NextRequest) {
       {
         method: "GET",
         headers: {
-          "Authorization": `Bearer ${BACKEND_API_BEARER_TOKEN}`,
+          Authorization: `Bearer ${BACKEND_API_BEARER_TOKEN}`,
         },
-      }
+      },
     );
 
     const data = await response.json();
@@ -42,7 +39,7 @@ export async function GET(request: NextRequest) {
     if (!response.ok) {
       return NextResponse.json(
         { error: data.error || "Failed to fetch subscriptions" },
-        { status: response.status }
+        { status: response.status },
       );
     }
 
@@ -51,7 +48,7 @@ export async function GET(request: NextRequest) {
     console.error("Error fetching subscriptions:", error);
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

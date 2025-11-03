@@ -16,7 +16,7 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({ session }) {
       // Send properties to the client
       return session;
     },

@@ -11,9 +11,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import type { ClientSafeProvider, LiteralUnion } from "next-auth/react";
+import type { BuiltInProviderType } from "next-auth/providers/index";
 
 export default function SignIn() {
-  const [providers, setProviders] = useState<any>(null);
+  const [providers, setProviders] = useState<Record<
+    LiteralUnion<BuiltInProviderType>,
+    ClientSafeProvider
+  > | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -51,7 +56,7 @@ export default function SignIn() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          {Object.values(providers).map((provider: any) => (
+          {Object.values(providers).map((provider) => (
             <Button
               key={provider.name}
               onClick={() => signIn(provider.id, { callbackUrl: "/" })}

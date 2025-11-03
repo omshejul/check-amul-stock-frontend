@@ -2,8 +2,6 @@ import Link from "next/link";
 import { Github, Star, GitFork, Scale } from "lucide-react";
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
     <footer className="border-t bg-background">
       <div className="container mx-auto px-4 py-6">

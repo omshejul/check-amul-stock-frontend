@@ -65,7 +65,7 @@ export default function StockCheckerForm({
     setLoading(true);
 
     try {
-      const response = await stockCheckerAPI.createCheck({
+      await stockCheckerAPI.createCheck({
         productUrl: formData.productUrl,
         deliveryPincode: formData.deliveryPincode,
         phoneNumber: formData.phoneNumber,

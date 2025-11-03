@@ -36,7 +36,7 @@ class StockCheckerAPI {
         if (errorData.error) {
           errorMessage = errorData.error;
         }
-      } catch (e) {
+      } catch {
         // If error parsing fails, use default message
       }
       throw new Error(errorMessage);

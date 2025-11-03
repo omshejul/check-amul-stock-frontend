@@ -34,7 +34,7 @@ export function PhoneInput({
   className = "",
 }: PhoneInputProps) {
   const [selectedCountry, setSelectedCountry] = React.useState<Country>(
-    allCountries.find((c) => c.code === "US") || allCountries[0]
+    allCountries.find((c) => c.code === "US") || allCountries[0],
   ); // Default to USA; may be overridden by IP or value
   const [phoneNumber, setPhoneNumber] = React.useState("");
 
@@ -113,13 +113,14 @@ export function PhoneInput({
 
     // If nothing matched, just set raw value as phone number if different
     if (value !== phoneNumber) setPhoneNumber(value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
   const displayCountries: Country[] = React.useMemo(() => {
     const pinned = (Array.from(pinnedCodes) as string[])
       .map((code) => allCountries.find((c) => c.code === code))
       .filter(Boolean) as Country[];
     const rest = allCountries.filter(
-      (c) => !(pinnedCodes as readonly string[]).includes(c.code)
+      (c) => !(pinnedCodes as readonly string[]).includes(c.code),
     );
     return [...pinned, ...rest];
   }, []);

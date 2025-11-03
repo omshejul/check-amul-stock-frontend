@@ -67,6 +67,7 @@ export default function SubscriptionsList({
 
   useEffect(() => {
     fetchSubscriptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session, refreshTrigger]);
 
   const handleDelete = async (subscriptionId: number) => {
