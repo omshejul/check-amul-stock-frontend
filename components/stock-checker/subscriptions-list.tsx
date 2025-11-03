@@ -134,6 +134,22 @@ export default function SubscriptionsList({
     return `${minutes}min`;
   };
 
+  const formatDateTime = (dateString: string): string => {
+    const date = new Date(dateString);
+    const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    return new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      timeZone: userTimezone,
+      timeZoneName: "short",
+    }).format(date);
+  };
+
   if (loading) {
     return (
       <Card className="w-full">
@@ -240,18 +256,13 @@ export default function SubscriptionsList({
                             </div>
 
                             <div className="text-xs text-muted-foreground">
-                              Created:{" "}
-                              {new Date(
-                                subscription.created_at,
-                              ).toLocaleString()}
+                              Created: {formatDateTime(subscription.created_at)}
                             </div>
 
                             {!isActive && subscription.status_changed_at && (
                               <div className="text-xs text-muted-foreground">
                                 Status changed:{" "}
-                                {new Date(
-                                  subscription.status_changed_at,
-                                ).toLocaleString()}
+                                {formatDateTime(subscription.status_changed_at)}
                               </div>
                             )}
                           </div>
