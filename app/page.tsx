@@ -13,6 +13,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import YouTubeEmbed from "@/components/ui/youtube-embed";
+import { ExternalLink } from "lucide-react";
+import Image from "next/image";
 
 export default function Home() {
   const { status } = useSession();
@@ -77,6 +80,31 @@ export default function Home() {
                 </p>
               </div>
             </div>
+
+            {/* Video Tutorial */}
+            <div className="mt-6 space-y-3">
+              <h3 className="font-semibold text-center">Watch Tutorial</h3>
+              <YouTubeEmbed
+                videoId="xHB6or8Ywqg"
+                title="Amul Stock Checker Tutorial"
+              />
+            </div>
+            <a
+              href="https://shop.amul.com/en/browse/protein"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-primary hover:underline mt-2 border border-border rounded-md px-4 py-2 hover:bg-accent transition-colors"
+            >
+              <Image
+                src="/Amul_official_logo.svg"
+                alt="Amul Logo"
+                width={48}
+                height={48}
+                className="object-contain"
+              />
+              Browse Amul Products
+              <ExternalLink className="w-4 h-4" />
+            </a>
           </CardContent>
         </Card>
 
