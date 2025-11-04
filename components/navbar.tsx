@@ -25,7 +25,7 @@ export function Navbar() {
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <svg
               height="1.25em"
-              viewBox="0 0 500 177.925"
+              viewBox="0 0 500 187.925"
               xmlns="http://www.w3.org/2000/svg"
               className="inline-block"
               style={{ width: "auto" }}
@@ -50,7 +50,7 @@ export function Navbar() {
             >
               <svg
                 height="1.25em"
-                viewBox="0 0 500 177.925"
+                viewBox="0 0 500 187.925"
                 xmlns="http://www.w3.org/2000/svg"
                 className="inline-block"
                 style={{ width: "auto" }}
