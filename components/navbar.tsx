@@ -14,14 +14,29 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { signOut } from "next-auth/react";
+import { motion } from "framer-motion";
+import {
+  staggerContainerFast,
+  navItemVariant,
+} from "@/lib/animations/variants";
+import { iosSmooth } from "@/lib/animations/transitions";
 
 export function Navbar() {
   const { data: session } = useSession();
 
   return (
-    <header className="sticky flex justify-center px-4 top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <motion.header
+      initial="hidden"
+      animate="visible"
+      variants={staggerContainerFast}
+      className="sticky flex justify-center px-4 top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+    >
       <div className="container flex h-14 items-center max-w-6xl mx-auto">
-        <div className="mr-4 hidden md:flex">
+        <motion.div
+          variants={navItemVariant}
+          transition={iosSmooth}
+          className="mr-4 hidden md:flex"
+        >
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <svg
               height="1.25em"
@@ -40,10 +55,14 @@ export function Navbar() {
               Stock Checker
             </span>
           </Link>
-        </div>
+        </motion.div>
 
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
+          <motion.div
+            variants={navItemVariant}
+            transition={iosSmooth}
+            className="w-full flex-1 md:w-auto md:flex-none"
+          >
             <Link
               href="/"
               className="mr-6 flex items-center space-x-2 md:hidden"
@@ -63,9 +82,13 @@ export function Navbar() {
               </svg>
               <span className="font-bold">Stock Checker</span>
             </Link>
-          </div>
+          </motion.div>
 
-          <nav className="flex items-center space-x-2">
+          <motion.nav
+            variants={navItemVariant}
+            transition={iosSmooth}
+            className="flex items-center space-x-2"
+          >
             <ThemeToggle />
 
             {session?.user ? (
@@ -117,9 +140,9 @@ export function Navbar() {
                 <Link href="/auth/signin">Sign in</Link>
               </Button>
             )}
-          </nav>
+          </motion.nav>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }

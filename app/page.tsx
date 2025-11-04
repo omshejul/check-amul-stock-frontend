@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import { motion } from "framer-motion";
 import SignInButton from "@/components/auth/sign-in-button";
 import StockCheckerForm from "@/components/stock-checker/stock-checker-form";
 import SubscriptionsList from "@/components/stock-checker/subscriptions-list";
@@ -12,10 +13,22 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
 import YouTubeEmbed from "@/components/ui/youtube-embed";
-import { ExternalLink } from "lucide-react";
+import { Loader, ExternalLink } from "lucide-react";
 import Image from "next/image";
+import {
+  blurFadeIn,
+  staggerContainer,
+  cardVariant,
+} from "@/lib/animations/variants";
+import { subtleBlur, slowBlur } from "@/lib/animations/transitions";
 
 export default function Home() {
   const { status } = useSession();
@@ -26,10 +39,19 @@ export default function Home() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={staggerContainer}
+      className="container mx-auto px-4 py-8"
+    >
       <div className="flex flex-col gap-8 items-center max-w-4xl mx-auto">
         {/* Hero Section */}
-        <div className="text-center space-y-4 w-full max-w-3xl">
+        <motion.div
+          variants={blurFadeIn}
+          transition={slowBlur}
+          className="text-center space-y-4 w-full max-w-3xl"
+        >
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl flex items-center justify-center gap-3 flex-wrap">
             <svg
               height="1em"
@@ -51,113 +73,148 @@ export default function Home() {
             WhatsApp notifications when out-of-stock items become available for
             your delivery pincode.
           </p>
-        </div>
+        </motion.div>
 
         {/* How It Works */}
-        <Card className="w-full max-w-3xl">
-          <CardHeader>
-            <CardTitle>How It Works</CardTitle>
-            <CardDescription>
-              Simple automated monitoring for Amul product availability
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 sm:grid-cols-3">
-              <div className="space-y-2">
-                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold">
-                  1
-                </div>
-                <h3 className="font-semibold">Add Product</h3>
-                <p className="text-sm text-muted-foreground">
-                  Enter the Amul product URL, your pincode, and phone number
-                </p>
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold">
-                  2
-                </div>
-                <h3 className="font-semibold">Automated Checks</h3>
-                <p className="text-sm text-muted-foreground">
-                  Our service monitors stock availability at your chosen
-                  interval
-                </p>
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold">
-                  3
-                </div>
-                <h3 className="font-semibold">Get Notified</h3>
-                <p className="text-sm text-muted-foreground">
-                  Receive instant WhatsApp alerts when the product is back in
-                  stock
-                </p>
-              </div>
-            </div>
+        <motion.div
+          variants={cardVariant}
+          transition={subtleBlur}
+          className="w-full max-w-3xl"
+        >
+          <Card className="w-full max-w-3xl">
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="how-it-works" className="border-0">
+                <CardHeader className="pb-0">
+                  <AccordionTrigger className="hover:no-underline py-0">
+                    <div className="text-left">
+                      <CardTitle>How It Works</CardTitle>
+                      <CardDescription>
+                        Simple automated monitoring for Amul product
+                        availability
+                      </CardDescription>
+                    </div>
+                  </AccordionTrigger>
+                </CardHeader>
+                <AccordionContent>
+                  <CardContent>
+                    <div className="grid gap-4 sm:grid-cols-3">
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold">
+                          1
+                        </div>
+                        <h3 className="font-semibold">Add Product</h3>
+                        <p className="text-sm text-muted-foreground">
+                          Enter the Amul product URL, your pincode, and phone
+                          number
+                        </p>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold">
+                          2
+                        </div>
+                        <h3 className="font-semibold">Automated Checks</h3>
+                        <p className="text-sm text-muted-foreground">
+                          Our service monitors stock availability at your chosen
+                          interval
+                        </p>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold">
+                          3
+                        </div>
+                        <h3 className="font-semibold">Get Notified</h3>
+                        <p className="text-sm text-muted-foreground">
+                          Receive instant WhatsApp alerts when the product is
+                          back in stock
+                        </p>
+                      </div>
+                    </div>
 
-            {/* Video Tutorial */}
-            <div className="mt-6 space-y-3">
-              <h3 className="font-semibold text-center">Watch Tutorial</h3>
-              <YouTubeEmbed
-                videoId="xHB6or8Ywqg"
-                title="Amul Stock Checker Tutorial"
-              />
-            </div>
-            <a
-              href="https://shop.amul.com/en/browse/protein"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-primary hover:underline mt-2 border border-border rounded-md px-4 py-2 hover:bg-accent transition-colors"
-            >
-              <Image
-                src="/Amul_official_logo.svg"
-                alt="Amul Logo"
-                width={48}
-                height={48}
-                className="object-contain"
-              />
-              Browse Amul Products
-              <ExternalLink className="w-4 h-4" />
-            </a>
-          </CardContent>
-        </Card>
+                    {/* Video Tutorial */}
+                    <div className="mt-6 space-y-3">
+                      <h3 className="font-semibold text-center">
+                        Watch Tutorial
+                      </h3>
+                      <YouTubeEmbed
+                        videoId="xHB6or8Ywqg"
+                        title="Amul Stock Checker Tutorial"
+                      />
+                    </div>
+                    <a
+                      href="https://shop.amul.com/en/browse/protein"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm text-primary hover:underline mt-2 border border-border rounded-md px-4 py-2 hover:bg-accent transition-colors"
+                    >
+                      <Image
+                        src="/Amul_official_logo.svg"
+                        alt="Amul Logo"
+                        width={48}
+                        height={48}
+                        className="object-contain"
+                      />
+                      Browse Amul Products
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  </CardContent>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </Card>
+        </motion.div>
 
         {/* Loading State */}
         {status === "loading" && (
-          <div className="flex justify-center w-full">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-          </div>
+          <motion.div
+            variants={blurFadeIn}
+            transition={subtleBlur}
+            className="flex justify-center w-full"
+          >
+            <Loader className="h-8 w-8 animate-spin text-muted-foreground" />
+          </motion.div>
         )}
 
         {/* Authentication Section */}
         {status === "unauthenticated" && (
-          <Card className="w-full max-w-lg">
-            <CardHeader className="text-center">
-              <CardTitle>Sign In to Get Started</CardTitle>
-              <CardDescription>
-                Authenticate with your Google account to start monitoring
-                products
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="text-center space-y-4">
-              <SignInButton />
-            </CardContent>
-          </Card>
+          <motion.div
+            variants={cardVariant}
+            transition={subtleBlur}
+            className="w-full max-w-lg"
+          >
+            <Card className="w-full max-w-lg">
+              <CardHeader className="text-center">
+                <CardTitle>Sign In to Get Started</CardTitle>
+                <CardDescription>
+                  Authenticate with your Google account to start monitoring
+                  products
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="text-center space-y-4">
+                <SignInButton />
+              </CardContent>
+            </Card>
+          </motion.div>
         )}
 
         {/* Stock Checker Section - Only shown when authenticated */}
         {status === "authenticated" && (
           <>
-            <Separator className="w-full max-w-4xl" />
+            <motion.div variants={blurFadeIn} transition={subtleBlur}>
+              <Separator className="w-full max-w-4xl" />
+            </motion.div>
 
-            <div className="w-full max-w-4xl grid gap-8 md:grid-cols-2">
+            <motion.div
+              variants={staggerContainer}
+              className="w-full max-w-4xl grid gap-8 md:grid-cols-2"
+            >
               <StockCheckerForm
                 onSubscriptionCreated={handleSubscriptionCreated}
               />
               <SubscriptionsList refreshTrigger={refreshTrigger} />
-            </div>
+            </motion.div>
           </>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
