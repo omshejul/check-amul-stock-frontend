@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "shop.amul.com",
+        port: "",
+        pathname: "/s/**",
+      },
     ],
   },
   async rewrites() {

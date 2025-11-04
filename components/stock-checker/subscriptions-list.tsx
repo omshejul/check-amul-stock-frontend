@@ -29,6 +29,7 @@ import {
   XCircle,
   Clock as ClockIcon,
 } from "lucide-react";
+import { ProductImage } from "./product-image";
 import {
   staggerContainer,
   listItemVariant,
@@ -209,97 +210,119 @@ export default function SubscriptionsList({
                       layout
                     >
                       <Card className="overflow-hidden">
-                        <CardContent>
-                          <div className="flex flex-col gap-4">
-                            <div className="flex items-start justify-between gap-4">
-                              <div className="flex-1 space-y-3">
-                                <div className="flex items-center gap-2 flex-wrap">
-                                  {getStatusBadge(subscription.status)}
-                                  <Badge variant="secondary">
-                                    ID: {subscription.id}
-                                  </Badge>
-                                  <Badge variant="outline">
-                                    <Clock className="h-3 w-3 mr-1" />
-                                    Every{" "}
-                                    {formatInterval(
-                                      subscription.interval_minutes,
-                                    )}
-                                  </Badge>
-                                </div>
+                        <CardContent className="pt-6">
+                          <div className="flex gap-4">
+                            {/* Product Image */}
+                            <ProductImage
+                              imageUrl={subscription.image_url}
+                              productName={subscription.product_name}
+                              size={120}
+                              className="shrink-0"
+                            />
 
-                                {isExpired && (
-                                  <div className="text-sm text-orange-600 dark:text-orange-400 font-medium">
-                                    ✓ Stock notification sent - Subscription
-                                    auto-expired
-                                  </div>
-                                )}
+                            {/* Product Info */}
+                            <div className="flex-1 space-y-3 min-w-0">
+                              {/* Product Name */}
+                              {subscription.product_name && (
+                                <h3 className="font-semibold text-lg leading-tight line-clamp-2">
+                                  {subscription.product_name}
+                                </h3>
+                              )}
 
-                                {isDeleted && (
-                                  <div className="text-sm text-red-600 dark:text-red-400 font-medium">
-                                    This subscription has been removed
-                                  </div>
-                                )}
-
-                                <div className="space-y-2 text-sm">
-                                  <div className="flex items-start gap-2 text-muted-foreground">
-                                    <ExternalLink className="h-4 w-4 shrink-0 mt-0.5" />
-                                    <a
-                                      href={subscription.url}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="hover:underline break-all line-clamp-2"
-                                      title={subscription.url}
-                                    >
-                                      {subscription.url}
-                                    </a>
-                                  </div>
-
-                                  <div className="flex items-center gap-2 text-muted-foreground">
-                                    <MapPin className="h-4 w-4" />
-                                    <span>
-                                      Pincode: {subscription.delivery_pincode}
-                                    </span>
-                                  </div>
-
-                                  <div className="flex items-center gap-2 text-muted-foreground">
-                                    <Phone className="h-4 w-4 shrink-0" />
-                                    <span className="break-all">
-                                      {subscription.phone_number}
-                                    </span>
-                                  </div>
-
-                                  <div className="text-xs text-muted-foreground">
-                                    Created:{" "}
-                                    {formatDateTime(subscription.created_at)}
-                                  </div>
-
-                                  {!isActive &&
-                                    subscription.status_changed_at && (
-                                      <div className="text-xs text-muted-foreground">
-                                        Status changed:{" "}
-                                        {formatDateTime(
-                                          subscription.status_changed_at,
-                                        )}
-                                      </div>
-                                    )}
-                                </div>
+                              {/* Badges */}
+                              <div className="flex items-center gap-2 flex-wrap">
+                                {getStatusBadge(subscription.status)}
+                                <Badge variant="secondary">
+                                  ID: {subscription.id}
+                                </Badge>
+                                <Badge variant="outline">
+                                  <Clock className="h-3 w-3 mr-1" />
+                                  Every{" "}
+                                  {formatInterval(
+                                    subscription.interval_minutes,
+                                  )}
+                                </Badge>
                               </div>
 
-                              {!isDeleted && (
-                                <Button
-                                  variant="destructive"
-                                  size="sm"
-                                  onClick={() => handleDelete(subscription.id)}
-                                  // disabled={deletingId === subscription.id}
-                                  title="Delete subscription"
-                                >
-                                  {deletingId === subscription.id ? (
-                                    <Loader className="h-4 w-4 animate-spin" />
-                                  ) : (
-                                    <Trash2 className="h-4 w-4" />
-                                  )}
-                                </Button>
+                              {isExpired && (
+                                <div className="text-sm text-orange-600 dark:text-orange-400 font-medium">
+                                  ✓ Stock notification sent - Subscription
+                                  auto-expired
+                                </div>
                               )}
+
+                              {isDeleted && (
+                                <div className="text-sm text-red-600 dark:text-red-400 font-medium">
+                                  This subscription has been removed
+                                </div>
+                              )}
+
+                              {/* Details */}
+                              <div className="space-y-2 text-sm">
+                                <div className="flex items-center gap-2 text-muted-foreground">
+                                  <MapPin className="h-4 w-4" />
+                                  <span>
+                                    Pincode: {subscription.delivery_pincode}
+                                  </span>
+                                </div>
+
+                                <div className="flex items-center gap-2 text-muted-foreground">
+                                  <Phone className="h-4 w-4 shrink-0" />
+                                  <span className="break-all">
+                                    {subscription.phone_number}
+                                  </span>
+                                </div>
+
+                                <div className="text-xs text-muted-foreground">
+                                  Created:{" "}
+                                  {formatDateTime(subscription.created_at)}
+                                </div>
+
+                                {!isActive &&
+                                  subscription.status_changed_at && (
+                                    <div className="text-xs text-muted-foreground">
+                                      Status changed:{" "}
+                                      {formatDateTime(
+                                        subscription.status_changed_at,
+                                      )}
+                                    </div>
+                                  )}
+                              </div>
+
+                              {/* Action Buttons */}
+                              <div className="flex gap-2 flex-wrap">
+                                <Button variant="outline" size="sm" asChild>
+                                  <a
+                                    href={subscription.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1"
+                                  >
+                                    <ExternalLink className="h-4 w-4" />
+                                    View Product
+                                  </a>
+                                </Button>
+
+                                {!isDeleted && (
+                                  <Button
+                                    variant="destructive"
+                                    size="sm"
+                                    onClick={() =>
+                                      handleDelete(subscription.id)
+                                    }
+                                    title="Delete subscription"
+                                  >
+                                    {deletingId === subscription.id ? (
+                                      <Loader className="h-4 w-4 animate-spin" />
+                                    ) : (
+                                      <>
+                                        <Trash2 className="h-4 w-4" />
+                                        Delete
+                                      </>
+                                    )}
+                                  </Button>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </CardContent>

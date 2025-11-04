@@ -34,6 +34,8 @@ export interface Subscription {
   url: string;
   delivery_pincode: string;
   interval_minutes: number;
+  product_name?: string | null;
+  image_url?: string | null;
 }
 
 export interface GetSubscriptionsResponse {
