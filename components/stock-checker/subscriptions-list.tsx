@@ -204,8 +204,8 @@ export default function SubscriptionsList({
                       transition={subtleBlur}
                       layout
                     >
-                      <Card className="border-2 overflow-hidden">
-                        <CardContent className="pt-6">
+                      <Card className="overflow-hidden">
+                        <CardContent>
                           <div className="flex flex-col gap-4">
                             <div className="flex items-start justify-between gap-4">
                               <div className="flex-1 space-y-3">

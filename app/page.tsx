@@ -81,13 +81,13 @@ export default function Home() {
           transition={subtleBlur}
           className="w-full max-w-3xl"
         >
-          <Card className="w-full max-w-3xl">
+          <Card className="w-full max-w-3xl py-2">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="how-it-works" className="border-0">
                 <CardHeader className="pb-0">
                   <AccordionTrigger className="hover:no-underline py-0">
                     <div className="text-left">
-                      <CardTitle>How It Works</CardTitle>
+                      <CardTitle className="pt-2">How It Works</CardTitle>
                       <CardDescription>
                         Simple automated monitoring for Amul product
                         availability
@@ -97,7 +97,7 @@ export default function Home() {
                 </CardHeader>
                 <AccordionContent>
                   <CardContent>
-                    <div className="grid gap-4 sm:grid-cols-3">
+                    <div className="grid mt-4 gap-4 sm:grid-cols-3">
                       <div className="space-y-2">
                         <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold">
                           1
