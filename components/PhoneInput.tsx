@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import posthog from 'posthog-js';
+import posthog from "posthog-js";
 import {
   Select,
   SelectContent,
@@ -145,7 +145,7 @@ export function PhoneInput({
           onValueChange={(code) => {
             const country = allCountries.find((c) => c.code === code);
             if (country) {
-              posthog.capture('phone-input-country-changed', {
+              posthog.capture("phone-input-country-changed", {
                 country_code: country.code,
                 country_name: country.name,
               });
@@ -155,7 +155,7 @@ export function PhoneInput({
             }
           }}
         >
-          <SelectTrigger className="w-max cursor-pointer bg-neutral-500/10 h-12 border-r-0 border-neutral-300 dark:border-neutral-700 rounded-l-xl rounded-r-none outline-none focus:outline-none focus:ring-0">
+          <SelectTrigger className="w-max cursor-pointer bg-background h-12 border-r-0 border-neutral-300 dark:border-neutral-700 rounded-l-xl rounded-r-none outline-none focus:outline-none focus:ring-0">
             <SelectValue>
               <div className="flex items-center gap-2">
                 <ReactCountryFlag
@@ -210,7 +210,7 @@ export function PhoneInput({
             onChange={handlePhoneChange}
             disabled={disabled}
             placeholder={placeholder}
-            className="w-full h-12 px-3 border border-neutral-300 dark:border-neutral-700 rounded-r-xl focus:outline-none focus:border-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-black dark:text-neutral-100"
+            className="w-full h-12 px-3 border border-neutral-300 dark:border-neutral-700 bg-background rounded-r-xl focus:outline-none focus:border-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-black dark:text-neutral-100"
           />
         </div>
       </div>

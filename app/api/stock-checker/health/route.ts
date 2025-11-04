@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 const BACKEND_API_URL = process.env.BACKEND_API_URL;
 const BACKEND_API_BEARER_TOKEN = process.env.BACKEND_API_BEARER_TOKEN;
