@@ -27,6 +27,7 @@ import { DURATION_OPTIONS, DurationOption } from "@/types/stock-checker";
 import { AlertCircle, CheckCircle2, Loader } from "lucide-react";
 import { blurFadeInUp, blurFadeInDown } from "@/lib/animations/variants";
 import { subtleBlur } from "@/lib/animations/transitions";
+import posthog from 'posthog-js';
 
 interface StockCheckerFormProps {
   onSubscriptionCreated?: () => void;
@@ -75,6 +76,13 @@ export default function StockCheckerForm({
         intervalMinutes: DURATION_OPTIONS[formData.duration],
       });
 
+      posthog.capture('stock-monitor-subscription-created', {
+        product_url: formData.productUrl,
+        delivery_pincode: formData.deliveryPincode,
+        check_interval_minutes: DURATION_OPTIONS[formData.duration],
+        duration_option: formData.duration,
+      });
+
       setSuccess(
         `Subscription created successfully! You will be notified when stock becomes available.`,
       );
@@ -92,9 +100,15 @@ export default function StockCheckerForm({
         onSubscriptionCreated();
       }
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Failed to create subscription",
-      );
+      const errorMessage = err instanceof Error ? err.message : "Failed to create subscription";
+      setError(errorMessage);
+      posthog.capture('stock-monitor-subscription-failed', {
+        product_url: formData.productUrl,
+        delivery_pincode: formData.deliveryPincode,
+        check_interval_minutes: DURATION_OPTIONS[formData.duration],
+        duration_option: formData.duration,
+        error_message: errorMessage,
+      });
     } finally {
       setLoading(false);
     }

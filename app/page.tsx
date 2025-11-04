@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
+import posthog from 'posthog-js';
 import SignInButton from "@/components/auth/sign-in-button";
 import StockCheckerForm from "@/components/stock-checker/stock-checker-form";
 import SubscriptionsList from "@/components/stock-checker/subscriptions-list";
@@ -35,6 +36,7 @@ export default function Home() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const handleSubscriptionCreated = () => {
+    posthog.capture('stock-subscription-created');
     setRefreshTrigger((prev) => prev + 1);
   };
 
@@ -82,7 +84,16 @@ export default function Home() {
           className="w-full max-w-3xl"
         >
           <Card className="w-full max-w-3xl py-2">
-            <Accordion type="single" collapsible className="w-full">
+            <Accordion
+              type="single"
+              collapsible
+              className="w-full"
+              onValueChange={(value) => {
+                if (value) {
+                  posthog.capture('how-it-works-accordion-opened');
+                }
+              }}
+            >
               <AccordionItem value="how-it-works" className="border-0">
                 <CardHeader className="pb-0">
                   <AccordionTrigger className="hover:no-underline py-0">

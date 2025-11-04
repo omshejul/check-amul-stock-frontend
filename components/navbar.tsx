@@ -1,5 +1,6 @@
 "use client";
 
+import posthog from 'posthog-js';
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -128,7 +129,10 @@ export function Navbar() {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
-                    onClick={() => signOut()}
+                    onClick={() => {
+                      posthog.capture('user-signed-out');
+                      signOut();
+                    }}
                     className="text-destructive focus:text-destructive cursor-pointer"
                   >
                     Sign out
@@ -136,7 +140,7 @@ export function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button asChild variant="outline">
+              <Button asChild variant="outline" onClick={() => posthog.capture('sign-in-clicked', { location: 'navbar' })}>
                 <Link href="/auth/signin">Sign in</Link>
               </Button>
             )}

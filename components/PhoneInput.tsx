@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import posthog from 'posthog-js';
 import {
   Select,
   SelectContent,
@@ -144,6 +145,10 @@ export function PhoneInput({
           onValueChange={(code) => {
             const country = allCountries.find((c) => c.code === code);
             if (country) {
+              posthog.capture('phone-input-country-changed', {
+                country_code: country.code,
+                country_name: country.name,
+              });
               setSelectedCountry(country);
               const next = country.dialCode + phoneNumber;
               if (next !== value) onChange(next);

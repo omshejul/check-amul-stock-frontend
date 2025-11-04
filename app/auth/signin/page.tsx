@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import type { ClientSafeProvider, LiteralUnion } from "next-auth/react";
 import type { BuiltInProviderType } from "next-auth/providers/index";
+import posthog from 'posthog-js';
 
 export default function SignIn() {
   const [providers, setProviders] = useState<Record<
@@ -59,7 +60,13 @@ export default function SignIn() {
           {Object.values(providers).map((provider) => (
             <Button
               key={provider.name}
-              onClick={() => signIn(provider.id, { callbackUrl: "/" })}
+              onClick={() => {
+                posthog.capture('signin_initiated', { 
+                  provider_id: provider.id,
+                  provider_name: provider.name
+                });
+                signIn(provider.id, { callbackUrl: "/" });
+              }}
               className="w-full gap-2"
               variant="outline"
               size="lg"

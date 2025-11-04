@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
+import posthog from 'posthog-js';
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -87,6 +88,7 @@ export default function SubscriptionsList({
 
     try {
       await stockCheckerAPI.deleteCheck(subscriptionId);
+      posthog.capture('stock_subscription_deleted', { subscription_id: subscriptionId });
       setSubscriptions((prev) =>
         prev.filter((sub) => sub.id !== subscriptionId),
       );
@@ -216,7 +218,8 @@ export default function SubscriptionsList({
                                   </Badge>
                                   <Badge variant="outline">
                                     <Clock className="h-3 w-3 mr-1" />
-                                    Every{" "}
+                                    Every{"
+                                    "}
                                     {formatInterval(
                                       subscription.interval_minutes,
                                     )}
@@ -265,14 +268,16 @@ export default function SubscriptionsList({
                                   </div>
 
                                   <div className="text-xs text-muted-foreground">
-                                    Created:{" "}
+                                    Created:{"
+                                    "}
                                     {formatDateTime(subscription.created_at)}
                                   </div>
 
                                   {!isActive &&
                                     subscription.status_changed_at && (
                                       <div className="text-xs text-muted-foreground">
-                                        Status changed:{" "}
+                                        Status changed:{"
+                                        "}
                                         {formatDateTime(
                                           subscription.status_changed_at,
                                         )}

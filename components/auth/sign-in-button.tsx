@@ -1,11 +1,15 @@
 "use client";
 
+import posthog from 'posthog-js';
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 
 export default function SignInButton() {
   return (
-    <Button onClick={() => signIn("google")} size="lg" className="gap-2">
+    <Button onClick={() => {
+      posthog.capture('sign_in_clicked', { provider: 'google' });
+      signIn("google");
+    }} size="lg" className="gap-2">
       <svg className="w-5 h-5" viewBox="0 0 24 24">
         <path
           fill="currentColor"
