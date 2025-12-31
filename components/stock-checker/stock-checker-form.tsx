@@ -24,10 +24,11 @@ import {
 import { PhoneInput } from "@/components/PhoneInput";
 import { stockCheckerAPI } from "@/lib/services/stock-checker-api";
 import { DURATION_OPTIONS, DurationOption } from "@/types/stock-checker";
-import { AlertCircle, CheckCircle2, Loader } from "lucide-react";
+import { AlertCircle, CheckCircle2, Loader, LocateFixed } from "lucide-react";
 import { blurFadeInUp, blurFadeInDown } from "@/lib/animations/variants";
 import { subtleBlur } from "@/lib/animations/transitions";
 import posthog from 'posthog-js';
+import { getCurrentLocation, getPincodeFromCoordinates } from "@/lib/utils";
 
 interface StockCheckerFormProps {
   onSubscriptionCreated?: () => void;
@@ -46,6 +47,7 @@ export default function StockCheckerForm({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [detectingPincode, setDetectingPincode] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -114,6 +116,50 @@ export default function StockCheckerForm({
     }
   };
 
+  const handleDetectPincode = async () => {
+    // Show loader immediately on click
+    setDetectingPincode(true);
+    setError(null);
+
+    const startTime = Date.now();
+    const MIN_LOADER_TIME = 500; // Minimum 800ms loader display time
+
+    try {
+      // Get user's current location using GPS
+      const position = await getCurrentLocation();
+      const { latitude, longitude, accuracy } = position.coords;
+
+      // Reverse geocode to get pincode
+      const pincode = await getPincodeFromCoordinates(latitude, longitude);
+
+      // Update form data
+      setFormData({ ...formData, deliveryPincode: pincode });
+
+      posthog.capture('pincode-detected-via-geolocation', {
+        latitude,
+        longitude,
+        pincode,
+        accuracy,
+      });
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : "Failed to detect pincode";
+      setError(errorMessage);
+      posthog.capture('pincode-detection-failed', {
+        error_message: errorMessage,
+      });
+    } finally {
+      // Ensure loader shows for minimum time
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = Math.max(0, MIN_LOADER_TIME - elapsedTime);
+      
+      if (remainingTime > 0) {
+        await new Promise((resolve) => setTimeout(resolve, remainingTime));
+      }
+      
+      setDetectingPincode(false);
+    }
+  };
+
   return (
     <motion.div
       initial="hidden"
@@ -146,16 +192,61 @@ export default function StockCheckerForm({
 
             <div className="space-y-2">
               <Label htmlFor="deliveryPincode">Delivery Pincode *</Label>
-              <Input
-                id="deliveryPincode"
-                type="text"
-                placeholder="431136"
-                value={formData.deliveryPincode}
-                onChange={(e) =>
-                  setFormData({ ...formData, deliveryPincode: e.target.value })
-                }
-                required
-              />
+              <div className="relative">
+                <Input
+                  id="deliveryPincode"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  placeholder="431136"
+                  value={formData.deliveryPincode}
+                  onChange={(e) => {
+                    // Only allow numbers, max 6 digits
+                    const value = e.target.value.replace(/\D/g, "").slice(0, 6);
+                    setFormData({ ...formData, deliveryPincode: value });
+                  }}
+                  required
+                  className="pr-11"
+                  maxLength={6}
+                />
+                <motion.button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleDetectPincode();
+                  }}
+                  disabled={detectingPincode || loading}
+                  className=" cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center w-8 h-8 rounded-md hover:bg-accent"
+                  aria-label="Detect pincode using GPS"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  <AnimatePresence mode="wait">
+                    {detectingPincode ? (
+                      <motion.div
+                        key="loader"
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <Loader className="h-5 w-5 animate-spin" />
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="icon"
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <LocateFixed className="h-5 w-5" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.button>
+              </div>
             </div>
 
             <div className="space-y-2">
