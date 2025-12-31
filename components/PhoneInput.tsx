@@ -210,7 +210,7 @@ export function PhoneInput({
             onChange={handlePhoneChange}
             disabled={disabled}
             placeholder={placeholder}
-            className="w-full h-12 px-3 border border-neutral-300 dark:border-neutral-700 bg-background rounded-r-xl focus:outline-none focus:border-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-black dark:text-neutral-100"
+            className="w-full h-12 px-3 border border-neutral-300 dark:border-neutral-700 bg-background rounded-r-xl focus:outline-none focus:border-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-black dark:text-neutral-100 placeholder:text-muted-foreground/50"
           />
         </div>
       </div>
