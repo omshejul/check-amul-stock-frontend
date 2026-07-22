@@ -170,7 +170,7 @@ export function PhoneInput({
               </div>
             </SelectValue>
           </SelectTrigger>
-          <SelectContent className="max-h-[40vh] overflow-y-auto font-plusJakartaSans">
+          <SelectContent className="max-h-[40vh] overflow-y-auto">
             <SelectGroup>
               <SelectLabel>Countries</SelectLabel>
               {displayCountries.map((country) => (

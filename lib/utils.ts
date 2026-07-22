@@ -147,7 +147,7 @@ export async function getPincodeFromCoordinates(
         const cleanPincode = pincode.toString().replace(/\s+/g, "").slice(0, 6);
         return cleanPincode;
       }
-    } catch (error) {
+    } catch {
       // If LocationIQ also fails, continue to throw error
     }
   }

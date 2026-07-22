@@ -1,25 +1,10 @@
 import type { Metadata } from "next";
-import {
-  Geist,
-  Geist_Mono,
-  Plus_Jakarta_Sans,
-  IBM_Plex_Sans,
-} from "next/font/google";
+import { IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/providers/session-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 const ibmPlexSans = IBM_Plex_Sans({
   variable: "--font-ibm-plex-sans",
@@ -27,18 +12,13 @@ const ibmPlexSans = IBM_Plex_Sans({
   weight: ["400", "500", "600", "700"],
 });
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta-sans",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   title: {
-    default: "Amul Stock Checker - Monitor Product Availability",
+    default: "Amul Stock Checker – Get WhatsApp Restock Alerts",
     template: "%s | Amul Stock Checker",
   },
   description:
-    "Monitor Amul product stock availability and get instant WhatsApp notifications when products are back in stock. Built with Next.js, NextAuth, and shadcn/ui.",
+    "Track Amul product availability by pincode and receive WhatsApp alerts when products such as Amul protein items are back in stock.",
   keywords: [
     "Amul",
     "stock checker",
@@ -78,9 +58,9 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Amul Stock Checker - Monitor Product Availability",
+    title: "Amul Stock Checker – Get WhatsApp Restock Alerts",
     description:
-      "Get instant WhatsApp notifications when Amul products are back in stock. Free and open source.",
+      "Track Amul product availability by pincode and receive WhatsApp alerts when products are back in stock.",
     type: "website",
     url: "https://amul.omshejul.com",
     siteName: "Amul Stock Checker",
@@ -96,9 +76,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Amul Stock Checker - Monitor Product Availability",
+    title: "Amul Stock Checker – Get WhatsApp Restock Alerts",
     description:
-      "Get instant WhatsApp notifications when Amul products are back in stock. Free and open source.",
+      "Track Amul product availability by pincode and receive WhatsApp alerts when products are back in stock.",
     images: ["/screenshots/app-preview.png"],
     creator: "@omshejul",
   },
@@ -113,6 +93,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+    : undefined,
   category: "technology",
 };
 
@@ -124,7 +107,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${plusJakartaSans.variable} ${geistMono.variable} ${ibmPlexSans.variable} antialiased`}
+        className={`${ibmPlexSans.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"

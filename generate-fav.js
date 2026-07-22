@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // make sure to have the logo.svg in the public folder
 
 /**
@@ -17,7 +18,7 @@ const path = require('path');
 let sharp;
 try {
   sharp = require('sharp');
-} catch (error) {
+} catch {
   console.log('Sharp not found. Installing...');
   console.log('Run: npm install sharp');
   console.log('Then run this script again.');

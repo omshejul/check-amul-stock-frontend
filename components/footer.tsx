@@ -70,6 +70,33 @@ export function Footer() {
           </div>
         </div>
 
+        <nav
+          aria-label="Site information"
+          className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t pt-5 text-sm text-muted-foreground"
+        >
+          <Link href="/how-it-works" className="hover:text-foreground hover:underline">
+            How it works
+          </Link>
+          <Link href="/amul-protein-stock" className="hover:text-foreground hover:underline">
+            Amul protein stock
+          </Link>
+          <Link href="/amul-restock-alerts" className="hover:text-foreground hover:underline">
+            Restock alerts
+          </Link>
+          <Link href="/faq" className="hover:text-foreground hover:underline">
+            FAQ
+          </Link>
+          <Link href="/about" className="hover:text-foreground hover:underline">
+            About
+          </Link>
+          <Link href="/privacy" className="hover:text-foreground hover:underline">
+            Privacy
+          </Link>
+          <Link href="/terms" className="hover:text-foreground hover:underline">
+            Terms
+          </Link>
+        </nav>
+
         {/* Bottom - Contribution message */}
         <div className="mt-4 pt-4 border-t text-center text-xs text-muted-foreground">
           <p>

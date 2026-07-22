@@ -1,12 +1,17 @@
-"use client";
-
-import { useState } from "react";
-import { useSession } from "next-auth/react";
-import { motion } from "framer-motion";
-import posthog from 'posthog-js';
-import SignInButton from "@/components/auth/sign-in-button";
-import StockCheckerForm from "@/components/stock-checker/stock-checker-form";
-import SubscriptionsList from "@/components/stock-checker/subscriptions-list";
+import Link from "next/link";
+import {
+  BellRing,
+  CheckCircle2,
+  Clock3,
+  ExternalLink,
+  MapPin,
+  PackageSearch,
+  ShieldCheck,
+} from "lucide-react";
+import StockCheckerWorkspace from "@/components/stock-checker/stock-checker-workspace";
+import YouTubeEmbed from "@/components/ui/youtube-embed";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -14,218 +19,338 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Separator } from "@/components/ui/separator";
-import YouTubeEmbed from "@/components/ui/youtube-embed";
-import { Loader, ExternalLink } from "lucide-react";
-import Image from "next/image";
-import {
-  blurFadeIn,
-  staggerContainer,
-  cardVariant,
-} from "@/lib/animations/variants";
-import { subtleBlur, slowBlur } from "@/lib/animations/transitions";
+import { createPageMetadata } from "@/lib/metadata";
+
+const siteUrl = "https://amul.omshejul.com";
+
+export const metadata = createPageMetadata({
+  title: "Amul Stock Checker – Get WhatsApp Restock Alerts",
+  description:
+    "Track Amul product availability by pincode and receive WhatsApp alerts when products such as Amul protein items are back in stock.",
+  path: "/",
+});
+
+const faqs = [
+  {
+    question: "What is the Amul Stock Checker?",
+    answer:
+      "It is a free, independent web tool that monitors an Amul Shop product URL for a delivery pincode and sends a WhatsApp alert when the product becomes available.",
+  },
+  {
+    question: "Which Amul products can I monitor?",
+    answer:
+      "You can submit a product page from shop.amul.com, including eligible protein products such as whey protein, high-protein buttermilk, lassi, and other products sold through the Amul Shop. Availability depends on the product and delivery pincode.",
+  },
+  {
+    question: "Does the checker show stock for my pincode?",
+    answer:
+      "Yes. Each monitor is tied to the six-digit delivery pincode you enter because Amul Shop availability can differ by location. Create separate monitors if you need to check more than one delivery area.",
+  },
+  {
+    question: "How quickly will I receive a restock alert?",
+    answer:
+      "You choose a check interval of 1, 6, 12, or 24 hours. An alert can only be sent after a scheduled check detects availability, so the selected interval affects how quickly a restock may be noticed.",
+  },
+  {
+    question: "Will an alert guarantee that I can buy the product?",
+    answer:
+      "No. Stock can change between a check, the WhatsApp notification, and checkout. Always confirm the product, delivery pincode, price, and availability on the official Amul Shop before purchasing.",
+  },
+  {
+    question: "How do I stop an Amul stock alert?",
+    answer:
+      "Sign in, find the monitor under Your Subscriptions, and select Delete. A monitor also expires after it detects stock and sends its notification, so it does not continue alerting indefinitely.",
+  },
+];
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Amul Stock Checker",
+    url: siteUrl,
+    description:
+      "Track Amul product availability by delivery pincode and receive WhatsApp restock alerts.",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Amul Stock Checker",
+    url: siteUrl,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    description:
+      "Monitor Amul Shop product availability by delivery pincode and receive a WhatsApp alert when stock is detected.",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "INR",
+    },
+    author: {
+      "@type": "Person",
+      name: "Om Shejul",
+      url: "https://github.com/omshejul",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: answer,
+      },
+    })),
+  },
+];
 
 export default function Home() {
-  const { status } = useSession();
-  const [refreshTrigger, setRefreshTrigger] = useState(0);
-
-  const handleSubscriptionCreated = () => {
-    posthog.capture('stock-subscription-created');
-    setRefreshTrigger((prev) => prev + 1);
-  };
-
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      variants={staggerContainer}
-      className="container mx-auto px-4 py-8"
-    >
-      <div className="flex flex-col gap-8 items-center max-w-4xl mx-auto">
-        {/* Hero Section */}
-        <motion.div
-          variants={blurFadeIn}
-          transition={slowBlur}
-          className="text-center space-y-4 w-full max-w-3xl"
-        >
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl flex items-center justify-center gap-3 flex-wrap">
-            <svg
-              height="1em"
-              viewBox="0 0 500 177.925"
-              xmlns="http://www.w3.org/2000/svg"
-              className="inline-block"
-              style={{ width: "auto" }}
-              aria-label="Amul"
-            >
-              <path
-                d="M71.239.016c-.924.027-1.862.067-2.807.16C60.74.94 57.65 3.233 53.836 10.764c-.61 1.205-2.008 3.644-3.047 5.453-1.04 1.81-2.372 4.249-2.968 5.453-.598 1.207-2.26 4.524-3.769 7.298-3.563 6.562-3.403 8.772.962 10.025 1.524.437 1.798.27 2.487-1.043 2.95-5.627 13.516-10.201 18.284-7.94 2.115 1.006 2.278 2.07.722 4.973-.602 1.125-1.123 2.391-1.123 2.807 0 .415-.456 1.63-1.042 2.727-1.187 2.216-3.602 7.937-4.732 11.307-.406 1.205-1.22 3.217-1.844 4.411-.627 1.196-1.123 2.48-1.123 2.887 0 .407-.654 2.046-1.363 3.609-.713 1.565-1.652 3.96-2.166 5.373-2.07 5.711-2.802 6.26-10.746 7.94-8.476 1.79-14.616 6.999-18.605 15.798-1.876 4.137-1.845 4.12-1.203 5.133.518.817 2.79.034 4.731-1.604 1.165-.978 6.833-2.94 10.185-3.529 4.51-.794 5.394 1.182 2.967 6.496-.725 1.59-2.076 4.715-3.047 6.977-2.508 5.836-2.22 5.677-10.105 6.095-19.696 1.046-30.623 17.39-26.384 39.537.43 2.246 1.298 5.09 1.924 6.255.624 1.167 1.123 2.25 1.123 2.486 0 1.08 4.7 7.138 6.095 7.86 2.71 1.402 3.535-1.275 1.524-4.973-10.624-19.531 5.643-37.594 25.823-28.63 1.657.736 3.397 1.571 3.85 1.764.77.329 2.355 1.3 7.457 4.732 1.172.79 3.152 2.462 4.411 3.689 5.667 5.515 4.746 5.99 21.252-11.468 8.226-8.699 8.206-11.314-.08-8.42l-3.93 1.362-3.448-1.684c-1.903-.903-4.409-2.373-5.614-3.288a100.314 100.314 0 00-4.41-3.127c-3.922-2.579-4.398-5.31-1.925-10.907.552-1.25 1.363-3.638 1.844-5.293 1.236-4.251 3.635-6.752 5.374-5.614 4.59 3.007 20.601 4.839 36.248 4.17 8.595-.37 8.608-.332 11.308 9.303.55 1.959 1.445 4.744 1.925 6.175 2.283 6.793 2.65 7.98 3.608 11.308 1.317 4.566 3.112 9.99 4.411 13.473.563 1.508 1.277 3.784 1.604 5.052.622 2.405 2.906 5.614 4.01 5.614.353 0 8.631-7.983 18.365-17.723 19.386-19.402 19.703-19.732 16.2-21.814l-1.765-1.042-2.807 2.165c-3.137 2.48-3.63 2.585-5.373 1.363-1.189-.833-4.246-6.812-5.614-10.987-.382-1.158-.99-2.606-1.363-3.208-.374-.604-.992-2.081-1.363-3.288-.374-1.205-.992-2.515-1.364-2.967-.373-.453-1.048-2.012-1.523-3.369-1.231-3.525-3.638-9.3-4.491-10.906-.399-.754-.979-2.33-1.364-3.529-.386-1.198-1.208-2.937-1.764-3.85-.556-.91-1.04-2.033-1.043-2.486-.004-.453-.7-2.36-1.603-4.17-.902-1.809-1.683-3.554-1.685-3.93 0-.377-.566-1.856-1.283-3.287a266.88 266.88 0 01-2.727-5.614c-4.523-9.72-10.646-21.706-12.83-25.021-.819-1.242-2.173-3.33-3.048-4.652C96.52 6.851 85.089-.38 71.239.015zm392.56 12.832c-.995.02-1.92.238-2.647.641-.754.418-6.32 5.856-12.35 12.11-6.03 6.256-11.602 12-12.43 12.751-4.395 3.984.147 8.105 5.132 4.652 4.344-3.012 9.463-2.49 10.987 1.122.897 2.124.668 85.921-.242 87.735-.304.602-1.22 1.755-2.085 2.566-2.078 1.948-2.067 2.092 1.283 4.812 4.018 3.262 10.98 9.648 14.595 13.312 4.562 4.628 4.54 4.587 11.228-1.042 5.7-4.799 8.63-7.094 14.515-11.468 8.49-6.314 8.46-6.293 8.1-8.1-.394-1.974-1.295-2.68-2.807-2.246-3.86 1.113-5.46.964-7.137-.802l-1.604-1.764-.32-48.037c-.16-28.197-.5-48.519-.801-49.16-4.036-8.59-16.46-17.22-23.418-17.082zM81.904 41.798c.294-.03.72-.048 1.203 0 1.18.116 1.935.579 2.405 1.524.374.752.991 2.144 1.444 3.048.45.905 1.216 2.474 1.684 3.528a154.521 154.521 0 001.925 4.17c1.46 3.005 3.215 7.146 4.41 10.426.552 1.506 1.771 4.815 2.727 7.378 2.32 6.214 2.406 7.19.32 7.78-4.523 1.277-25.835-1.707-28.63-4.01-.685-.563-.26-3.293.803-5.133.345-.6 1.129-2.43 1.764-4.09.633-1.658 1.76-4.612 2.486-6.496.726-1.884 1.945-4.933 2.647-6.817.703-1.884 1.617-4.147 2.085-5.052.466-.904 1.06-2.554 1.283-3.61.424-2.007.562-2.559 1.444-2.645zM235.72 59.361c-1.592.053-3.283.57-5.614 1.604-2.11.937-4.486 2.252-5.293 2.887a85.639 85.639 0 01-3.448 2.566c-1.086.754-3.953 2.906-6.336 4.812-5.414 4.333-6.72 4.377-8.821.481-2.935-5.442-8.118-9.08-14.756-10.425-5.962-1.209-7.182-.846-13.313 4.01-1.715 1.356-4.886 3.796-6.977 5.453-2.09 1.66-4.886 3.917-6.255 4.972-5.032 3.874-3.342 6.816 3.609 6.256 7.379-.596 8.088.917 8.1 17.322.017 22.688-.815 27.271-5.213 29.753-3.401 1.919-3.273 2.148 6.014 10.505 2.682 2.412 5.386 4.91 6.015 5.534 8.786 8.72 9.878 9.051 14.917 4.25a1016 1016 0 019.222-8.66c10.457-9.675 10.185-9.357 10.185-11.148 0-2.095-.691-2.609-2.727-1.764-2.06.852-4.485-.058-5.373-2.005-.422-.926-.642-7.358-.642-20.29V86.468l1.444-1.845c4.007-5.251 11.91-4.996 14.114.482 1.76 4.374 2.15 12.139 1.444 27.828-.708 15.735-.91 16.63-4.09 19.327l-1.684 1.444 2.726 2.646c2.447 2.39 4.917 4.581 10.266 8.982.914.752 2.142 1.712 2.646 2.165 7.788 7.017 7.955 7.067 15.077.32.635-.604 3.522-3.21 6.496-5.774 13.281-11.437 14.776-14.274 7.618-14.515-5.425-.18-5.766-1.774-5.533-23.899l.159-16.12 1.524-2.325c2.675-4.115 6.582-5.395 10.906-3.529 5.713 2.467 5.94 3.426 5.614 26.144-.304 21.398-.584 23.265-3.288 24.861-2.807 1.655-2.506 3.236 1.042 6.015 4.138 3.244 6.342 5.071 8.26 6.656.928.767 2.23 1.804 2.888 2.246.659.44 2.98 2.225 5.132 4.01 4.898 4.062 3.57 4.766 18.044-9.464 10.87-10.685 11.18-10.983 10.827-12.75-.539-2.703-1.179-3.066-3.048-1.685-2.05 1.517-4.76 1.604-5.533.16-.362-.68-.54-9.423-.562-24.3l-.078-23.177-1.764-4.25c-4.06-9.815-10.842-14.285-21.493-14.195-4.82.04-6.963.475-12.59 2.646-3.924 1.515-9.41 5.421-13.153 9.303-2.796 2.902-4.5 2.763-6.817-.561-3.174-4.553-10.093-10.427-14.916-12.671-1.917-.892-3.38-1.337-4.972-1.283zm115.081 3.048c-.416.01-.81.01-1.203.078-.906.16-2.299.842-3.127 1.444-3.575 2.6-10.139 7.397-11.148 8.18-3.268 2.546-8.95 6.779-10.265 7.619-1.606 1.029-2.02 3.316-.962 5.293.734 1.376 3.77 2.402 4.731 1.603 1.253-1.037 4.621-1.56 6.336-.962 3.148 1.096 3.208 1.711 3.208 24.38v20.61l-1.924 2.165c-2.256 2.497-2.297 4.096-.16 5.373 1.383.826 5.448 3.584 14.997 10.185 2.412 1.668 4.942 3.424 5.694 3.93.754.503 1.867 1.381 2.406 1.924 1.266 1.275 3.808 1.21 5.694-.079 4.244-2.908 18.05-12.024 19.648-12.991 1.013-.614 2.315-1.489 2.887-2.005 2.09-1.893 4.752-1.254 7.939 1.924 3.515 3.506 8.4 7.81 11.388 10.025a188.53 188.53 0 013.77 2.886c.863.68 2.02 1.203 2.565 1.203 1.561 0 24.861-23.525 24.861-25.1 0-3.31-1.774-4.178-4.812-2.327-7.506 4.577-9.142-.2-9.142-26.545 0-21.267-.168-22.845-3.288-27.427-4.265-6.273-9.873-9.245-17.483-9.302h-5.052l-5.534 4.651a525.671 525.671 0 01-7.538 6.255c-1.126.906-2.829 2.38-3.77 3.208-.943.829-1.918 1.444-2.165 1.444-1.53 0-1.822 3.57-.482 5.614 1.58 2.416 1.663 2.407 4.491.962 3.893-1.987 6.247-1.447 7.94 1.685 1.488 2.756 1.63 34.772.16 37.852-3.512 7.353-13.643 9.837-18.927 4.651-2.792-2.739-2.887-4.11-2.887-28.55V79.812l-1.444-4.01c-2.598-7.139-11.157-13.542-17.402-13.393z"
-                fill="currentColor"
-              />
-            </svg>
-            <span>Stock Checker</span>
-          </h1>
-          <p className="text-lg text-muted-foreground sm:text-xl">
-            Never miss out on your favorite Amul products again. Get instant
-            WhatsApp notifications when out-of-stock items become available for
-            your delivery pincode.
-          </p>
-        </motion.div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+        }}
+      />
 
-        {/* How It Works */}
-        <motion.div
-          variants={cardVariant}
-          transition={subtleBlur}
-          className="w-full max-w-3xl"
-        >
-          <Card className="w-full max-w-3xl py-2">
-            <Accordion
-              type="single"
-              collapsible
-              className="w-full"
-              onValueChange={(value) => {
-                if (value) {
-                  posthog.capture('how-it-works-accordion-opened');
-                }
-              }}
-            >
-              <AccordionItem value="how-it-works" className="border-0">
-                <CardHeader className="pb-0">
-                  <AccordionTrigger className="hover:no-underline py-0">
-                    <div className="text-left">
-                      <CardTitle className="pt-2">How It Works</CardTitle>
-                      <CardDescription>
-                        Simple automated monitoring for Amul product
-                        availability
-                      </CardDescription>
+      <div className="container mx-auto px-4 py-8 sm:py-12">
+        <div className="mx-auto flex max-w-5xl flex-col items-center gap-12">
+          <header className="max-w-4xl space-y-6 text-center">
+            <Badge variant="secondary" className="rounded-full px-3 py-1">
+              Independent, free and open source
+            </Badge>
+            <div className="space-y-4">
+              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+                Amul Stock Checker with WhatsApp Restock Alerts
+              </h1>
+              <p className="mx-auto max-w-3xl text-lg text-muted-foreground sm:text-xl">
+                Track Amul product availability for your delivery pincode and
+                receive a WhatsApp notification when an out-of-stock item is
+                detected in stock again.
+              </p>
+            </div>
+            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Button asChild size="lg">
+                <Link href="#stock-monitor">Start monitoring Amul stock</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <a
+                  href="https://shop.amul.com/en/browse/protein"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Browse Amul Shop
+                  <ExternalLink aria-hidden="true" />
+                </a>
+              </Button>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              This unofficial project is not affiliated with, endorsed by, or
+              sponsored by Amul or GCMMF.
+            </p>
+          </header>
+
+          <section aria-labelledby="how-it-works" className="w-full space-y-6">
+            <div className="mx-auto max-w-3xl text-center">
+              <h2 id="how-it-works" className="text-3xl font-bold tracking-tight">
+                How Amul stock monitoring works
+              </h2>
+              <p className="mt-3 text-muted-foreground">
+                Create a monitor in a few steps. The checker handles the
+                scheduled availability checks and lets you manage every alert
+                from the same account.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-3">
+              {[
+                {
+                  icon: PackageSearch,
+                  title: "Add an Amul product",
+                  text: "Paste the exact shop.amul.com product URL you want to track, then enter the delivery pincode where you plan to order.",
+                },
+                {
+                  icon: Clock3,
+                  title: "Choose a check interval",
+                  text: "Select checks every 1, 6, 12, or 24 hours. A shorter interval can detect a restock sooner but never guarantees availability.",
+                },
+                {
+                  icon: BellRing,
+                  title: "Receive a WhatsApp alert",
+                  text: "When a scheduled check finds stock, the service sends a notification to your submitted WhatsApp number and expires the monitor.",
+                },
+              ].map(({ icon: Icon, title, text }) => (
+                <Card key={title}>
+                  <CardHeader>
+                    <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                      <Icon className="h-5 w-5" aria-hidden="true" />
                     </div>
-                  </AccordionTrigger>
-                </CardHeader>
-                <AccordionContent>
+                    <CardTitle className="text-xl">{title}</CardTitle>
+                  </CardHeader>
                   <CardContent>
-                    <div className="grid mt-4 gap-4 sm:grid-cols-3">
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold">
-                          1
-                        </div>
-                        <h3 className="font-semibold">Add Product</h3>
-                        <p className="text-sm text-muted-foreground">
-                          Enter the Amul product URL, your pincode, and phone
-                          number
-                        </p>
-                      </div>
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold">
-                          2
-                        </div>
-                        <h3 className="font-semibold">Automated Checks</h3>
-                        <p className="text-sm text-muted-foreground">
-                          Our service monitors stock availability at your chosen
-                          interval
-                        </p>
-                      </div>
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold">
-                          3
-                        </div>
-                        <h3 className="font-semibold">Get Notified</h3>
-                        <p className="text-sm text-muted-foreground">
-                          Receive instant WhatsApp alerts when the product is
-                          back in stock
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Video Tutorial */}
-                    <div className="mt-6 space-y-3">
-                      <h3 className="font-semibold text-center">
-                        Watch Tutorial
-                      </h3>
-                      <YouTubeEmbed
-                        videoId="xHB6or8Ywqg"
-                        title="Amul Stock Checker Tutorial"
-                      />
-                    </div>
-                    <a
-                      href="https://shop.amul.com/en/browse/protein"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm text-primary hover:underline mt-2 border border-border rounded-md px-4 py-2 hover:bg-accent transition-colors"
-                    >
-                      <Image
-                        src="/Amul_official_logo.svg"
-                        alt="Amul Logo"
-                        width={48}
-                        height={48}
-                        className="object-contain"
-                      />
-                      Browse Amul Products
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
+                    <p className="text-sm leading-6 text-muted-foreground">{text}</p>
                   </CardContent>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </Card>
-        </motion.div>
+                </Card>
+              ))}
+            </div>
+          </section>
 
-        {/* Loading State */}
-        {status === "loading" && (
-          <motion.div
-            variants={blurFadeIn}
-            transition={subtleBlur}
-            className="flex justify-center w-full"
-          >
-            <Loader className="h-8 w-8 animate-spin text-muted-foreground" />
-          </motion.div>
-        )}
+          <section id="stock-monitor" aria-labelledby="monitor-heading" className="w-full scroll-mt-24">
+            <h2 id="monitor-heading" className="sr-only">
+              Create and manage Amul stock monitors
+            </h2>
+            <StockCheckerWorkspace />
+          </section>
 
-        {/* Authentication Section */}
-        {status === "unauthenticated" && (
-          <motion.div
-            variants={cardVariant}
-            transition={subtleBlur}
-            className="w-full max-w-lg"
-          >
-            <Card className="w-full max-w-lg">
-              <CardHeader className="text-center">
-                <CardTitle>Sign In to Get Started</CardTitle>
+          <section aria-labelledby="products-heading" className="w-full">
+            <Card>
+              <CardHeader>
+                <CardTitle id="products-heading" className="text-2xl sm:text-3xl">
+                  Monitor Amul protein products and more
+                </CardTitle>
                 <CardDescription>
-                  Authenticate with your Google account to start monitoring
-                  products
+                  Availability is checked against the Amul Shop product page you provide.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="text-center space-y-4">
-                <SignInButton />
+              <CardContent className="grid gap-8 md:grid-cols-2">
+                <div className="space-y-4 leading-7 text-muted-foreground">
+                  <p>
+                    The checker is useful for frequently unavailable Amul Shop
+                    items, including eligible whey protein, high-protein
+                    buttermilk, high-protein lassi, and other dairy products.
+                    You are not limited to a fixed catalogue: use the individual
+                    product URL from the official store when creating a monitor.
+                  </p>
+                  <p>
+                    Product availability is location-specific. An item shown in
+                    stock for one city or pincode may be unavailable elsewhere,
+                    which is why every monitor includes a six-digit delivery
+                    pincode. The GPS button can help fill your current postal
+                    code, but you can always enter it manually.
+                  </p>
+                </div>
+                <div className="space-y-3">
+                  {[
+                    "Track the exact product page you intend to purchase from",
+                    "Check availability for the delivery pincode that matters to you",
+                    "Choose a monitoring frequency that matches your needs",
+                    "Open the official product page directly from your subscription",
+                  ].map((item) => (
+                    <div key={item} className="flex gap-3 rounded-lg bg-muted/60 p-3">
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                      <span className="text-sm leading-6">{item}</span>
+                    </div>
+                  ))}
+                </div>
               </CardContent>
             </Card>
-          </motion.div>
-        )}
+          </section>
 
-        {/* Stock Checker Section - Only shown when authenticated */}
-        {status === "authenticated" && (
-          <>
-            <motion.div variants={blurFadeIn} transition={subtleBlur}>
-              <Separator className="w-full max-w-4xl" />
-            </motion.div>
+          <section aria-labelledby="details-heading" className="w-full space-y-6">
+            <div className="mx-auto max-w-3xl text-center">
+              <h2 id="details-heading" className="text-3xl font-bold tracking-tight">
+                What to expect from an Amul restock alert
+              </h2>
+              <p className="mt-3 text-muted-foreground">
+                Stock checking is designed to save repeated manual visits, but
+                availability can change quickly and should always be confirmed at checkout.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-3">
+              <Card>
+                <CardHeader>
+                  <MapPin className="h-6 w-6 text-primary" aria-hidden="true" />
+                  <CardTitle className="text-xl">Pincode-specific checks</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm leading-6 text-muted-foreground">
+                  The service checks the product for the pincode attached to
+                  your monitor. If you move or want another delivery area, add a
+                  separate monitor with that pincode.
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <Clock3 className="h-6 w-6 text-primary" aria-hidden="true" />
+                  <CardTitle className="text-xl">Scheduled, not real-time</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm leading-6 text-muted-foreground">
+                  Checks run at your chosen interval rather than continuously.
+                  An item may sell out before the next check or after an alert,
+                  so a notification is not a reservation or purchase guarantee.
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <ShieldCheck className="h-6 w-6 text-primary" aria-hidden="true" />
+                  <CardTitle className="text-xl">You control your monitors</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm leading-6 text-muted-foreground">
+                  Sign in to view and delete your subscriptions. Your Google
+                  account identifies which monitors belong to you; your phone
+                  number is used to deliver the requested WhatsApp notification.
+                </CardContent>
+              </Card>
+            </div>
+          </section>
 
-            <motion.div
-              variants={staggerContainer}
-              className="w-full max-w-4xl grid gap-8 md:grid-cols-2"
-            >
-              <StockCheckerForm
-                onSubscriptionCreated={handleSubscriptionCreated}
-              />
-              <SubscriptionsList refreshTrigger={refreshTrigger} />
-            </motion.div>
-          </>
-        )}
+          <section aria-labelledby="tutorial-heading" className="w-full max-w-3xl space-y-4">
+            <div className="text-center">
+              <h2 id="tutorial-heading" className="text-3xl font-bold tracking-tight">
+                Watch the setup tutorial
+              </h2>
+              <p className="mt-3 text-muted-foreground">
+                See how to find a product URL, enter your pincode and create an alert.
+              </p>
+            </div>
+            <YouTubeEmbed
+              videoId="xHB6or8Ywqg"
+              title="How to create an Amul product stock alert"
+            />
+          </section>
+
+          <section aria-labelledby="faq-heading" className="w-full max-w-4xl space-y-6">
+            <div className="text-center">
+              <h2 id="faq-heading" className="text-3xl font-bold tracking-tight">
+                Amul stock checker FAQs
+              </h2>
+              <p className="mt-3 text-muted-foreground">
+                Common questions about product availability, pincodes and WhatsApp alerts.
+              </p>
+            </div>
+            <div className="space-y-3">
+              {faqs.map(({ question, answer }) => (
+                <details key={question} className="group rounded-lg border bg-card px-5 py-4">
+                  <summary className="cursor-pointer list-none pr-6 font-semibold marker:content-none">
+                    {question}
+                  </summary>
+                  <p className="mt-3 leading-7 text-muted-foreground">{answer}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+
+          <section aria-labelledby="final-cta-heading" className="w-full max-w-4xl">
+            <Card className="bg-muted/50 text-center">
+              <CardHeader>
+                <CardTitle id="final-cta-heading" className="text-2xl sm:text-3xl">
+                  Stop repeatedly checking Amul Shop for stock
+                </CardTitle>
+                <CardDescription className="mx-auto max-w-2xl text-base">
+                  Add the product and delivery pincode you care about, choose a
+                  schedule, and let the checker notify you when availability is detected.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button asChild size="lg">
+                  <Link href="#stock-monitor">Create a free stock monitor</Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </section>
+        </div>
       </div>
-    </motion.div>
+    </>
   );
 }
