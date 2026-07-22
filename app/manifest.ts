@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Amul Stock Checker",
     short_name: "Amul Stock",
     description:
-      "Monitor Amul product availability by pincode and receive WhatsApp restock alerts.",
+      "Check Amul product stock by pincode and get WhatsApp restock alerts.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

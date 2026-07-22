@@ -4,10 +4,10 @@ import { Github, Star, GitFork, Scale } from "lucide-react";
 export function Footer() {
   return (
     <footer className="border-t bg-background">
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="border-b">
+        <div className="container mx-auto grid max-w-6xl grid-cols-1 items-center gap-4 px-4 py-6 text-center md:grid-cols-[1fr_auto_1fr] md:text-left">
           {/* Left side - Open Source Badge */}
-          <div className="flex items-center gap-3 text-sm">
+          <div className="flex items-center justify-center gap-3 text-sm md:justify-self-start">
             <div className="flex items-center gap-1.5 text-muted-foreground">
               <Scale className="h-4 w-4" />
               <Link
@@ -24,8 +24,8 @@ export function Footer() {
           </div>
 
           {/* Center - Creator */}
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span>Created by</span>
+          <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground md:justify-self-center">
+            <span>Built by</span>
             <Link
               href="https://github.com/omshejul"
               target="_blank"
@@ -37,7 +37,7 @@ export function Footer() {
           </div>
 
           {/* Right side - GitHub Actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center gap-3 md:justify-self-end">
             <Link
               href="https://github.com/omshejul/check-amul-stock-frontend"
               target="_blank"
@@ -69,10 +69,12 @@ export function Footer() {
             </Link>
           </div>
         </div>
+      </div>
 
+      <div className="border-b">
         <nav
           aria-label="Site information"
-          className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t pt-5 text-sm text-muted-foreground"
+          className="container mx-auto grid max-w-6xl grid-cols-2 items-center gap-x-4 gap-y-3 px-4 py-5 text-center text-sm text-muted-foreground sm:grid-cols-4 lg:grid-cols-7"
         >
           <Link href="/how-it-works" className="hover:text-foreground hover:underline">
             How it works
@@ -96,42 +98,41 @@ export function Footer() {
             Terms
           </Link>
         </nav>
+      </div>
 
-        {/* Bottom - Contribution message */}
-        <div className="mt-4 pt-4 border-t text-center text-xs text-muted-foreground">
-          <p>
-            Monitor Amul product stock and get instant notifications • Free and
-            Open Source • Contributions Welcome
-          </p>
-          <p className="mt-1">
-            <Link
-              href="https://github.com/omshejul/check-amul-stock-frontend/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors underline-offset-4 hover:underline"
-            >
-              Report Issues
-            </Link>
-            {" • "}
-            <Link
-              href="https://github.com/omshejul/check-amul-stock-frontend/pulls"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors underline-offset-4 hover:underline"
-            >
-              Submit PR
-            </Link>
-            {" • "}
-            <Link
-              href="https://github.com/omshejul/check-amul-stock-frontend#readme"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors underline-offset-4 hover:underline"
-            >
-              Documentation
-            </Link>
-          </p>
-        </div>
+      {/* Bottom - Contribution message */}
+      <div className="container mx-auto max-w-6xl px-4 py-5 text-center text-xs text-muted-foreground">
+        <p>
+          Free and open source. Built to save you from refreshing product pages.
+        </p>
+        <p className="mt-1">
+          <Link
+            href="https://github.com/omshejul/check-amul-stock-frontend/issues"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors underline-offset-4 hover:underline"
+          >
+            Report Issues
+          </Link>
+          {" • "}
+          <Link
+            href="https://github.com/omshejul/check-amul-stock-frontend/pulls"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors underline-offset-4 hover:underline"
+          >
+            Submit PR
+          </Link>
+          {" • "}
+          <Link
+            href="https://github.com/omshejul/check-amul-stock-frontend#readme"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors underline-offset-4 hover:underline"
+          >
+            Documentation
+          </Link>
+        </p>
       </div>
     </footer>
   );

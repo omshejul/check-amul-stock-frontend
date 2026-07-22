@@ -42,7 +42,7 @@ export default function SignIn() {
   if (!providers) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">Loading...</div>
+        <div className="text-center">Loading sign-in options...</div>
       </div>
     );
   }
@@ -51,9 +51,9 @@ export default function SignIn() {
     <div className="min-h-screen flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Sign in to your account</CardTitle>
+          <CardTitle className="text-2xl">Welcome back</CardTitle>
           <CardDescription>
-            Choose your preferred sign-in method
+            Sign in to create and manage your stock alerts
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">

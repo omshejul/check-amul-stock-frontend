@@ -29,7 +29,7 @@ export default function StockCheckerWorkspace() {
       <Card className="w-full">
         <CardContent className="flex items-center justify-center gap-3 py-12 text-muted-foreground">
           <Loader className="h-6 w-6 animate-spin" aria-hidden="true" />
-          <span>Loading your stock monitors…</span>
+          <span>Loading your stock alerts...</span>
         </CardContent>
       </Card>
     );
@@ -39,9 +39,9 @@ export default function StockCheckerWorkspace() {
     return (
       <Card className="mx-auto w-full max-w-lg">
         <CardHeader className="text-center">
-          <CardTitle>Sign in to create an Amul stock alert</CardTitle>
+          <CardTitle>Sign in to create a stock alert</CardTitle>
           <CardDescription>
-            Use your Google account to create and manage product monitors securely.
+            Use your Google account to keep your alerts together and manage them later.
           </CardDescription>
         </CardHeader>
         <CardContent className="text-center">

@@ -14,11 +14,11 @@ const ibmPlexSans = IBM_Plex_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "Amul Stock Checker – Get WhatsApp Restock Alerts",
+    default: "Amul Stock Checker | WhatsApp Restock Alerts",
     template: "%s | Amul Stock Checker",
   },
   description:
-    "Track Amul product availability by pincode and receive WhatsApp alerts when products such as Amul protein items are back in stock.",
+    "Check Amul product stock for your pincode and get a WhatsApp message when an item comes back in stock.",
   keywords: [
     "Amul",
     "stock checker",
@@ -58,9 +58,9 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Amul Stock Checker – Get WhatsApp Restock Alerts",
+    title: "Amul Stock Checker | WhatsApp Restock Alerts",
     description:
-      "Track Amul product availability by pincode and receive WhatsApp alerts when products are back in stock.",
+      "Check Amul product stock for your pincode and get a WhatsApp message when an item comes back in stock.",
     type: "website",
     url: "https://amul.omshejul.com",
     siteName: "Amul Stock Checker",
@@ -76,9 +76,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Amul Stock Checker – Get WhatsApp Restock Alerts",
+    title: "Amul Stock Checker | WhatsApp Restock Alerts",
     description:
-      "Track Amul product availability by pincode and receive WhatsApp alerts when products are back in stock.",
+      "Check Amul product stock for your pincode and get a WhatsApp message when an item comes back in stock.",
     images: ["/screenshots/app-preview.png"],
     creator: "@omshejul",
   },

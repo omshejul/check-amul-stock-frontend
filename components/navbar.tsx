@@ -63,7 +63,7 @@ export function Navbar() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                   <Link href="/#stock-monitor" className="cursor-pointer">
-                    My subscriptions
+                    My alerts
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />

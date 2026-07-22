@@ -68,7 +68,7 @@ export default function SubscriptionsList({
       setSubscriptions(activeSubscriptions);
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Failed to fetch subscriptions",
+        err instanceof Error ? err.message : "We couldn't load your alerts",
       );
     } finally {
       setLoading(false);
@@ -81,7 +81,7 @@ export default function SubscriptionsList({
   }, [session, refreshTrigger]);
 
   const handleDelete = async (subscriptionId: number) => {
-    if (!confirm("Are you sure you want to remove this subscription?")) {
+    if (!confirm("Remove this stock alert?")) {
       return;
     }
 
@@ -97,7 +97,7 @@ export default function SubscriptionsList({
       );
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Failed to delete subscription",
+        err instanceof Error ? err.message : "We couldn't remove this alert",
       );
     } finally {
       setDeletingId(null);
@@ -120,7 +120,7 @@ export default function SubscriptionsList({
             className="bg-orange-600 hover:bg-orange-700"
           >
             <ClockIcon className="h-3 w-3 mr-1" />
-            Expired
+            Complete
           </Badge>
         );
       case "deleted":
@@ -136,22 +136,22 @@ export default function SubscriptionsList({
   };
 
   const formatInterval = (minutes: number): string => {
-    if (minutes === 60) return "1hr";
-    if (minutes === 360) return "6hr";
-    if (minutes === 720) return "12hr";
-    if (minutes === 1440) return "24hr";
+    if (minutes === 60) return "hour";
+    if (minutes === 360) return "6 hours";
+    if (minutes === 720) return "12 hours";
+    if (minutes === 1440) return "24 hours";
     if (minutes >= 60) {
       const hours = minutes / 60;
-      return `${hours}hr`;
+      return `${hours} hours`;
     }
-    return `${minutes}min`;
+    return `${minutes} minutes`;
   };
 
   if (loading) {
     return (
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>Your Subscriptions</CardTitle>
+          <CardTitle>Your stock alerts</CardTitle>
         </CardHeader>
         <CardContent className="flex justify-center py-8">
           <Loader className="h-8 w-8 animate-spin text-muted-foreground" />
@@ -169,9 +169,9 @@ export default function SubscriptionsList({
     >
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>Your Subscriptions</CardTitle>
+          <CardTitle>Your stock alerts</CardTitle>
           <CardDescription>
-            Manage your active stock monitoring subscriptions
+            See what we are checking and remove alerts you no longer need
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -184,9 +184,9 @@ export default function SubscriptionsList({
 
           {subscriptions.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
-              <p>No active subscriptions yet.</p>
+              <p>You have not created an alert yet.</p>
               <p className="text-sm mt-2">
-                Create your first subscription above to get started.
+                Use the form to track your first product.
               </p>
             </div>
           ) : (
@@ -232,9 +232,6 @@ export default function SubscriptionsList({
                               {/* Badges */}
                               <div className="flex items-center gap-2 flex-wrap">
                                 {getStatusBadge(subscription.status)}
-                                <Badge variant="secondary">
-                                  ID: {subscription.id}
-                                </Badge>
                                 <Badge variant="outline">
                                   <Clock className="h-3 w-3 mr-1" />
                                   Every{" "}
@@ -246,14 +243,13 @@ export default function SubscriptionsList({
 
                               {isExpired && (
                                 <div className="text-sm text-orange-600 dark:text-orange-400 font-medium">
-                                  ✓ Stock notification sent - Subscription
-                                  auto-expired
+                                  WhatsApp message sent. This alert is now complete.
                                 </div>
                               )}
 
                               {isDeleted && (
                                 <div className="text-sm text-red-600 dark:text-red-400 font-medium">
-                                  This subscription has been removed
+                                  This alert has been removed
                                 </div>
                               )}
 
@@ -281,7 +277,7 @@ export default function SubscriptionsList({
                                 {!isActive &&
                                   subscription.status_changed_at && (
                                     <div className="text-xs text-muted-foreground">
-                                      Status changed:{" "}
+                                      Updated:{" "}
                                       {formatDateTime(
                                         subscription.status_changed_at,
                                       )}
@@ -310,14 +306,14 @@ export default function SubscriptionsList({
                                     onClick={() =>
                                       handleDelete(subscription.id)
                                     }
-                                    title="Delete subscription"
+                                    title="Remove alert"
                                   >
                                     {deletingId === subscription.id ? (
                                       <Loader className="h-4 w-4 animate-spin" />
                                     ) : (
                                       <>
                                         <Trash2 className="h-4 w-4" />
-                                        Delete
+                                        Remove
                                       </>
                                     )}
                                   </Button>

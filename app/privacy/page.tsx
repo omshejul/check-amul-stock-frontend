@@ -4,7 +4,7 @@ import { createPageMetadata } from "@/lib/metadata";
 export const metadata = createPageMetadata({
   title: "Privacy and Data Use",
   description:
-    "Learn what information Amul Stock Checker uses for authentication, stock monitors, WhatsApp alerts, analytics, location detection, and data deletion.",
+    "Learn what Amul Stock Checker uses for sign-in, stock alerts, WhatsApp messages, analytics, location lookup, and data deletion.",
   path: "/privacy",
 });
 
@@ -12,39 +12,38 @@ export default function PrivacyPage() {
   return (
     <SeoPage
       title="Privacy and Data Use"
-      description="This page explains the information involved when you sign in, create a monitor, request pincode detection, or use the Amul Stock Checker website."
+      description="Here is what the site uses when you sign in, create an alert, look up your pincode, or browse the website."
       path="/privacy"
       showCta={false}
     >
-      <p className="text-sm">Last updated: July 22, 2026</p>
+      <p className="text-sm">Last updated: July 23, 2026</p>
 
       <section className="space-y-4">
         <h2>Project scope</h2>
         <p>
-          Amul Stock Checker is an independent open-source project operated by
-          Om Shejul. It is not an official Amul or GCMMF service. This notice
-          describes the frontend application and the information needed to
-          provide product monitoring and WhatsApp notifications.
+          Amul Stock Checker is an independent open-source project built by Om
+          Shejul. It is not an official Amul or GCMMF service. This page explains
+          what information the site needs to check products and send WhatsApp messages.
         </p>
       </section>
 
       <section className="space-y-4">
-        <h2>Information used by the service</h2>
+        <h2>Information the site uses</h2>
         <ul className="list-disc space-y-2 pl-6">
           <li>
             <strong className="text-foreground">Google account information:</strong> your name,
             email address, and profile image may be received through Google sign-in
-            so the application can authenticate you and associate monitors with your account.
+            so the site can sign you in and find the alerts linked to your account.
           </li>
           <li>
-            <strong className="text-foreground">Monitor information:</strong> the Amul product
+            <strong className="text-foreground">Alert information:</strong> the Amul product
             URL, delivery pincode, WhatsApp phone number, selected check interval,
-            creation time, and subscription status are sent to the monitoring backend.
+            creation time, and alert status are sent to the checking service.
           </li>
           <li>
             <strong className="text-foreground">Technical and usage information:</strong> the
-            site uses PostHog to understand feature usage and diagnose errors. This
-            may include browser, device, page, interaction, network, and error information.
+            site uses PostHog to understand how features are used and to find errors.
+            This may include browser, device, page, interaction, network, and error details.
           </li>
         </ul>
       </section>
@@ -52,38 +51,35 @@ export default function PrivacyPage() {
       <section className="space-y-4">
         <h2>How the information is used</h2>
         <p>
-          Account information is used to sign you in and return the subscriptions
-          associated with your email address. Monitor information is used to run
-          scheduled product checks and send the requested WhatsApp notification.
-          Usage information helps maintain and improve the website, understand
-          whether features work, and investigate failures.
+          We use your account information to sign you in and show your alerts.
+          Alert information is used to run scheduled checks and send the
+          WhatsApp message you requested. Usage information helps us understand
+          whether the site works and investigate problems.
         </p>
         <p>
           Do not submit a phone number that you do not control or have permission
-          to use. The service is intended for personal stock notifications.
+          to use. The site is meant for personal stock alerts.
         </p>
       </section>
 
       <section className="space-y-4">
         <h2>Optional pincode detection</h2>
         <p>
-          Location access is optional. When you press the location button, the
-          browser asks for permission and provides approximate coordinates if you
-          approve. Those coordinates are sent from your browser to BigDataCloud
-          for reverse geocoding, or to LocationIQ when that fallback is configured,
-          to find a postal code. The page then places the returned pincode into
-          the form. You can deny permission and enter a pincode manually.
+          Location access is optional. When you press the location button, your
+          browser asks for permission. If you agree, it sends an approximate
+          location to BigDataCloud, or to LocationIQ when the fallback is set up,
+          to find a postal code. You can decline and enter the pincode yourself.
         </p>
       </section>
 
       <section className="space-y-4">
         <h2>Third-party services</h2>
         <p>
-          The application relies on Google for authentication, PostHog for
-          analytics and error monitoring, a monitoring backend for scheduled
-          checks, WhatsApp-related delivery infrastructure for notifications,
+          The site relies on Google for sign-in, PostHog for analytics and error
+          tracking, a backend for scheduled product checks, messaging
+          infrastructure for WhatsApp alerts,
           BigDataCloud or LocationIQ for optional reverse geocoding, and YouTube
-          for the embedded tutorial. These services may process information under
+          for the embedded tutorial. These companies may process information under
           their own terms and privacy policies.
         </p>
         <p>
@@ -95,14 +91,13 @@ export default function PrivacyPage() {
       <section className="space-y-4">
         <h2>Retention and deletion</h2>
         <p>
-          Subscription records include lifecycle statuses such as active, expired,
-          and deleted. Deleting a monitor stops it from appearing in your active
-          list; backend records may be retained for operational history, security,
-          and troubleshooting. Specific retention periods are not promised by the
-          current open-source project.
+          Alert records include statuses such as active, expired, and deleted.
+          Removing an alert hides it from your active list. Backend records may
+          still be kept for operational history, security, and troubleshooting.
+          The project does not currently promise a specific retention period.
         </p>
         <p>
-          To stop a monitor, sign in and select Delete under Your Subscriptions.
+          To stop an alert, sign in and select Remove under Your stock alerts.
           For an account-level privacy or deletion request, contact the maintainer
           through the linked GitHub profile. Do not publish personal information
           in a public issue; first request a private contact method.
@@ -115,7 +110,7 @@ export default function PrivacyPage() {
           Backend credentials are kept in server-side configuration rather than
           exposed to the browser, and stock-management API routes require an
           authenticated session. No internet service can guarantee absolute
-          security or uninterrupted availability. Use the service only if you
+          security or uninterrupted access. Use the site only if you
           accept these limitations.
         </p>
       </section>

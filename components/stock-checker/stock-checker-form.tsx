@@ -55,7 +55,7 @@ export default function StockCheckerForm({
     setSuccess(null);
 
     if (!session?.user?.email) {
-      setError("You must be signed in to create a subscription");
+      setError("Please sign in before creating an alert");
       return;
     }
 
@@ -64,7 +64,7 @@ export default function StockCheckerForm({
       !formData.deliveryPincode ||
       !formData.phoneNumber
     ) {
-      setError("Please fill in all required fields");
+      setError("Please fill in every required field");
       return;
     }
 
@@ -86,7 +86,7 @@ export default function StockCheckerForm({
       });
 
       setSuccess(
-        `Subscription created successfully! You will be notified when stock becomes available.`,
+        `Your alert is ready. We'll message you when a scheduled check finds stock.`,
       );
 
       // Reset form
@@ -102,7 +102,7 @@ export default function StockCheckerForm({
         onSubscriptionCreated();
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Failed to create subscription";
+      const errorMessage = err instanceof Error ? err.message : "We couldn't create your alert";
       setError(errorMessage);
       posthog.capture('stock-monitor-subscription-failed', {
         product_url: formData.productUrl,
@@ -169,15 +169,15 @@ export default function StockCheckerForm({
     >
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>Monitor Amul Product Stock</CardTitle>
+          <CardTitle>Create a stock alert</CardTitle>
           <CardDescription>
-            Get notified when your desired product comes back in stock
+            Add the product, pincode, and WhatsApp number you want us to check
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="productUrl">Product URL *</Label>
+              <Label htmlFor="productUrl">Amul Shop product link *</Label>
               <Input
                 id="productUrl"
                 type="url"
@@ -191,7 +191,7 @@ export default function StockCheckerForm({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="deliveryPincode">Delivery Pincode *</Label>
+              <Label htmlFor="deliveryPincode">Delivery pincode *</Label>
               <div className="relative">
                 <Input
                   id="deliveryPincode"
@@ -250,7 +250,7 @@ export default function StockCheckerForm({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="phoneNumber">WhatsApp Number *</Label>
+              <Label htmlFor="phoneNumber">WhatsApp number *</Label>
               <PhoneInput
                 value={formData.phoneNumber}
                 onChange={(phone) =>
@@ -259,12 +259,12 @@ export default function StockCheckerForm({
                 placeholder="Phone number"
               />
               <p className="text-xs text-muted-foreground">
-                Select your country and enter your phone number
+                Choose your country code, then enter your number
               </p>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="duration">Check Interval</Label>
+              <Label htmlFor="duration">How often should we check?</Label>
               <Select
                 value={formData.duration}
                 onValueChange={(value: DurationOption) =>
@@ -282,7 +282,7 @@ export default function StockCheckerForm({
                 </SelectContent>
               </Select>
               <p className="text-xs text-muted-foreground">
-                How often to check for stock availability
+                More frequent checks may find a restock sooner
               </p>
             </div>
 
@@ -322,10 +322,10 @@ export default function StockCheckerForm({
               {loading ? (
                 <>
                   <Loader className="mr-2 h-4 w-4 animate-spin" />
-                  Creating subscription...
+                  Creating alert...
                 </>
               ) : (
-                "Start Monitoring"
+                "Create alert"
               )}
             </Button>
           </form>

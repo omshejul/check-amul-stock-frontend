@@ -5,7 +5,7 @@ import { createPageMetadata } from "@/lib/metadata";
 export const metadata = createPageMetadata({
   title: "Amul Stock Checker FAQ",
   description:
-    "Answers about Amul product availability checks, delivery pincodes, WhatsApp restock notifications, monitoring intervals, privacy, and deleting alerts.",
+    "Answers about Amul stock checks, delivery pincodes, WhatsApp restock messages, check schedules, privacy, and removing alerts.",
   path: "/faq",
 });
 
@@ -13,62 +13,62 @@ const questions = [
   {
     question: "Is this an official Amul stock checker?",
     answer:
-      "No. Amul Stock Checker is an independent, unofficial open-source project. It is not affiliated with, endorsed by, or sponsored by Amul or GCMMF. Product information, pricing, availability, ordering, and payment remain on the official Amul Shop.",
+      "No. This is an independent open-source project. It is not affiliated with or endorsed by Amul or GCMMF. Use Amul Shop for product details, prices, stock, orders, and payments.",
   },
   {
-    question: "What does the stock checker monitor?",
+    question: "What does the stock checker track?",
     answer:
-      "A subscription monitors the individual shop.amul.com product URL and six-digit delivery pincode you submit. It checks on the schedule you select and sends a WhatsApp notification when the service detects that product in stock.",
+      "Each alert checks one shop.amul.com product link for the six-digit delivery pincode you enter. It runs on the schedule you choose and sends a WhatsApp message when it finds stock.",
   },
   {
-    question: "Can I monitor Amul whey protein or high-protein drinks?",
+    question: "Can I track Amul whey protein or high-protein drinks?",
     answer:
-      "You can submit an eligible individual product page from Amul Shop, including current protein-range products. Use the exact page for the variant or pack size you want because separate product pages may have different availability.",
+      "Yes. Use the exact Amul Shop page for the flavour, variant, or pack size you want. Different product pages can show different stock.",
   },
   {
     question: "Why is a delivery pincode required?",
     answer:
-      "Availability can vary by delivery area. Including the pincode makes each monitor relevant to the location where you plan to order. The same product may show a different result for another pincode.",
+      "Stock can vary by delivery area. Your pincode helps us check the location where you plan to order. The same product may show a different result somewhere else.",
   },
   {
     question: "How does automatic pincode detection work?",
     answer:
-      "When you select the location button, your browser asks for location permission. If granted, the page sends approximate coordinates to a reverse-geocoding provider to obtain a postal code. You can decline and enter the pincode manually.",
+      "When you select the location button, your browser asks for permission. If you agree, the page uses your approximate location to look up a postal code. You can always say no and type the pincode yourself.",
   },
   {
     question: "How often can stock be checked?",
     answer:
-      "The supported intervals are every 1, 6, 12, or 24 hours. Monitoring is scheduled, not continuous. A shorter interval can notice a restock sooner but cannot guarantee that every brief availability window will be detected.",
+      "You can choose every 1, 6, 12, or 24 hours. Checks are scheduled, not continuous. A shorter schedule may spot a restock sooner, but it cannot catch every brief stock window.",
   },
   {
     question: "Is the stock result real-time?",
     answer:
-      "No. The result comes from a scheduled check. Availability may change after the check and before you open the store or complete checkout. Always verify the current result on shop.amul.com.",
+      "No. Stock may change after a check and before you open the store or finish checkout. Always confirm the latest result on shop.amul.com.",
   },
   {
     question: "Does an alert reserve the product?",
     answer:
-      "No. A notification does not reserve inventory, place an item in a cart, or create an order. It only tells you that the monitor detected availability. Purchases must be made directly through the official store.",
+      "No. A message does not reserve the product, add it to a cart, or place an order. You still need to buy it directly from Amul Shop.",
   },
   {
-    question: "Why did my subscription expire?",
+    question: "Why is my alert marked complete?",
     answer:
-      "A monitor automatically expires after it detects stock and triggers a notification. This avoids repeated alerts from the same subscription. Create a new monitor if you still need to watch that product.",
+      "An alert is marked complete after it finds stock and sends a WhatsApp message. This prevents repeat messages. Create a new alert if you still want to track the product.",
   },
   {
     question: "How do I stop or delete an alert?",
     answer:
-      "Sign in using the Google account that created the subscription, locate it under Your Subscriptions, and select Delete. Deleted subscriptions no longer appear in the active list.",
+      "Sign in with the Google account you used to create it, open Your stock alerts, and select Remove.",
   },
   {
-    question: "Why did I not receive a WhatsApp notification?",
+    question: "Why did I not receive a WhatsApp message?",
     answer:
-      "The product may not have been detected in stock yet, the next scheduled check may not have run, or the submitted country code and phone number may be incorrect. Confirm the monitor is active and review the interval you selected.",
+      "We may not have found stock yet, the next check may not have run, or the phone number may be wrong. Make sure the alert is active and check the country code, number, and schedule.",
   },
   {
-    question: "Is the service free?",
+    question: "Is it free?",
     answer:
-      "The web tool is currently offered for free and its source code is public under the MIT License. Third-party service availability and the project itself can change, so there is no guarantee of uninterrupted operation.",
+      "Yes, the hosted tool is currently free and the code is public under the MIT License. The project and the services it depends on may change over time.",
   },
 ];
 
@@ -93,7 +93,7 @@ export default function FaqPage() {
       />
       <SeoPage
         title="Amul Stock Checker FAQ"
-        description="Straightforward answers about product URLs, delivery pincodes, check frequency, WhatsApp alerts, privacy, and subscription management."
+        description="Quick answers about product links, delivery pincodes, check schedules, WhatsApp messages, privacy, and managing alerts."
         path="/faq"
       >
         <div className="space-y-3">

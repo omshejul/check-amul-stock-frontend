@@ -24,9 +24,9 @@ import { createPageMetadata } from "@/lib/metadata";
 const siteUrl = "https://amul.omshejul.com";
 
 export const metadata = createPageMetadata({
-  title: "Amul Stock Checker – Get WhatsApp Restock Alerts",
+  title: "Amul Stock Checker | WhatsApp Restock Alerts",
   description:
-    "Track Amul product availability by pincode and receive WhatsApp alerts when products such as Amul protein items are back in stock.",
+    "Check Amul product stock for your pincode and get a WhatsApp message when an item comes back in stock.",
   path: "/",
 });
 
@@ -34,32 +34,32 @@ const faqs = [
   {
     question: "What is the Amul Stock Checker?",
     answer:
-      "It is a free, independent web tool that monitors an Amul Shop product URL for a delivery pincode and sends a WhatsApp alert when the product becomes available.",
+      "It is a free, independent tool that checks an Amul Shop product for your delivery pincode and sends you a WhatsApp message when it finds stock.",
   },
   {
-    question: "Which Amul products can I monitor?",
+    question: "Which Amul products can I track?",
     answer:
-      "You can submit a product page from shop.amul.com, including eligible protein products such as whey protein, high-protein buttermilk, lassi, and other products sold through the Amul Shop. Availability depends on the product and delivery pincode.",
+      "You can use an individual product page from shop.amul.com, including whey protein, high-protein buttermilk, lassi, and other products sold through Amul Shop. Stock can vary by product and pincode.",
   },
   {
-    question: "Does the checker show stock for my pincode?",
+    question: "Does it check stock for my pincode?",
     answer:
-      "Yes. Each monitor is tied to the six-digit delivery pincode you enter because Amul Shop availability can differ by location. Create separate monitors if you need to check more than one delivery area.",
+      "Yes. Each alert uses the six-digit delivery pincode you enter because Amul Shop stock can differ by location. Create another alert if you want to check a different area.",
   },
   {
     question: "How quickly will I receive a restock alert?",
     answer:
-      "You choose a check interval of 1, 6, 12, or 24 hours. An alert can only be sent after a scheduled check detects availability, so the selected interval affects how quickly a restock may be noticed.",
+      "You can ask us to check every 1, 6, 12, or 24 hours. We can only message you after a scheduled check finds stock, so your chosen schedule affects how soon you may hear from us.",
   },
   {
     question: "Will an alert guarantee that I can buy the product?",
     answer:
-      "No. Stock can change between a check, the WhatsApp notification, and checkout. Always confirm the product, delivery pincode, price, and availability on the official Amul Shop before purchasing.",
+      "No. Stock can change between our check and checkout. Always confirm the product, pincode, price, and current stock on Amul Shop before you buy.",
   },
   {
     question: "How do I stop an Amul stock alert?",
     answer:
-      "Sign in, find the monitor under Your Subscriptions, and select Delete. A monitor also expires after it detects stock and sends its notification, so it does not continue alerting indefinitely.",
+      "Sign in, find the alert under Your stock alerts, and select Remove. An alert also expires after it finds stock and sends your WhatsApp message.",
   },
 ];
 
@@ -70,7 +70,7 @@ const structuredData = [
     name: "Amul Stock Checker",
     url: siteUrl,
     description:
-      "Track Amul product availability by delivery pincode and receive WhatsApp restock alerts.",
+      "Check Amul product stock by delivery pincode and get WhatsApp restock alerts.",
   },
   {
     "@context": "https://schema.org",
@@ -80,7 +80,7 @@ const structuredData = [
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Web",
     description:
-      "Monitor Amul Shop product availability by delivery pincode and receive a WhatsApp alert when stock is detected.",
+      "Check an Amul Shop product for a delivery pincode and send a WhatsApp message when stock is found.",
     offers: {
       "@type": "Offer",
       price: "0",
@@ -120,21 +120,21 @@ export default function Home() {
         <div className="mx-auto flex max-w-5xl flex-col items-center gap-12">
           <header className="max-w-4xl space-y-6 text-center">
             <Badge variant="secondary" className="rounded-full px-3 py-1">
-              Independent, free and open source
+              Free, open source, and independent
             </Badge>
             <div className="space-y-4">
               <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-                Amul Stock Checker with WhatsApp Restock Alerts
+                Check Amul stock and get WhatsApp restock alerts
               </h1>
               <p className="mx-auto max-w-3xl text-lg text-muted-foreground sm:text-xl">
-                Track Amul product availability for your delivery pincode and
-                receive a WhatsApp notification when an out-of-stock item is
-                detected in stock again.
+                Paste an Amul Shop link, add your delivery pincode, and choose
+                how often we should check. We&apos;ll message you on WhatsApp when
+                we find the product in stock.
               </p>
             </div>
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button asChild size="lg">
-                <Link href="#stock-monitor">Start monitoring Amul stock</Link>
+                <Link href="#stock-monitor">Track a product</Link>
               </Button>
               <Button asChild size="lg" variant="outline">
                 <a
@@ -148,38 +148,37 @@ export default function Home() {
               </Button>
             </div>
             <p className="text-xs text-muted-foreground">
-              This unofficial project is not affiliated with, endorsed by, or
-              sponsored by Amul or GCMMF.
+              This is an independent project. It is not affiliated with or
+              endorsed by Amul or GCMMF.
             </p>
           </header>
 
           <section aria-labelledby="how-it-works" className="w-full space-y-6">
             <div className="mx-auto max-w-3xl text-center">
               <h2 id="how-it-works" className="text-3xl font-bold tracking-tight">
-                How Amul stock monitoring works
+                How the Amul stock checker works
               </h2>
               <p className="mt-3 text-muted-foreground">
-                Create a monitor in a few steps. The checker handles the
-                scheduled availability checks and lets you manage every alert
-                from the same account.
+                Set up an alert in three quick steps. You can come back at any
+                time to see or remove the products you are tracking.
               </p>
             </div>
             <div className="grid gap-4 md:grid-cols-3">
               {[
                 {
                   icon: PackageSearch,
-                  title: "Add an Amul product",
-                  text: "Paste the exact shop.amul.com product URL you want to track, then enter the delivery pincode where you plan to order.",
+                  title: "Paste a product link",
+                  text: "Open the product on Amul Shop, copy its link, and add the pincode where you want it delivered.",
                 },
                 {
                   icon: Clock3,
-                  title: "Choose a check interval",
-                  text: "Select checks every 1, 6, 12, or 24 hours. A shorter interval can detect a restock sooner but never guarantees availability.",
+                  title: "Choose a schedule",
+                  text: "Ask us to check every 1, 6, 12, or 24 hours. More frequent checks may spot a restock sooner.",
                 },
                 {
                   icon: BellRing,
-                  title: "Receive a WhatsApp alert",
-                  text: "When a scheduled check finds stock, the service sends a notification to your submitted WhatsApp number and expires the monitor.",
+                  title: "Get a WhatsApp message",
+                  text: "When a check finds stock, we message the WhatsApp number you provided and mark the alert as complete.",
                 },
               ].map(({ icon: Icon, title, text }) => (
                 <Card key={title}>
@@ -199,7 +198,7 @@ export default function Home() {
 
           <section id="stock-monitor" aria-labelledby="monitor-heading" className="w-full scroll-mt-24">
             <h2 id="monitor-heading" className="sr-only">
-              Create and manage Amul stock monitors
+              Create and manage Amul stock alerts
             </h2>
             <StockCheckerWorkspace />
           </section>
@@ -208,35 +207,32 @@ export default function Home() {
             <Card>
               <CardHeader>
                 <CardTitle id="products-heading" className="text-2xl sm:text-3xl">
-                  Monitor Amul protein products and more
+                  Track Amul protein products and more
                 </CardTitle>
                 <CardDescription>
-                  Availability is checked against the Amul Shop product page you provide.
+                  We check the exact Amul Shop product page you give us.
                 </CardDescription>
               </CardHeader>
               <CardContent className="grid gap-8 md:grid-cols-2">
                 <div className="space-y-4 leading-7 text-muted-foreground">
                   <p>
-                    The checker is useful for frequently unavailable Amul Shop
-                    items, including eligible whey protein, high-protein
-                    buttermilk, high-protein lassi, and other dairy products.
-                    You are not limited to a fixed catalogue: use the individual
-                    product URL from the official store when creating a monitor.
+                    You can track whey protein, high-protein buttermilk,
+                    high-protein lassi, and other products sold on Amul Shop.
+                    Just use the individual page for the exact item and pack size
+                    you want.
                   </p>
                   <p>
-                    Product availability is location-specific. An item shown in
-                    stock for one city or pincode may be unavailable elsewhere,
-                    which is why every monitor includes a six-digit delivery
-                    pincode. The GPS button can help fill your current postal
-                    code, but you can always enter it manually.
+                    Stock can differ from one delivery area to another. That is
+                    why every alert includes a six-digit pincode. You can type it
+                    yourself or use the location button to fill it in.
                   </p>
                 </div>
                 <div className="space-y-3">
                   {[
-                    "Track the exact product page you intend to purchase from",
-                    "Check availability for the delivery pincode that matters to you",
-                    "Choose a monitoring frequency that matches your needs",
-                    "Open the official product page directly from your subscription",
+                    "Track the exact product and pack size you want",
+                    "Check stock for your delivery pincode",
+                    "Choose how often you want us to check",
+                    "Open Amul Shop straight from your alert",
                   ].map((item) => (
                     <div key={item} className="flex gap-3 rounded-lg bg-muted/60 p-3">
                       <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
@@ -251,45 +247,43 @@ export default function Home() {
           <section aria-labelledby="details-heading" className="w-full space-y-6">
             <div className="mx-auto max-w-3xl text-center">
               <h2 id="details-heading" className="text-3xl font-bold tracking-tight">
-                What to expect from an Amul restock alert
+                A few things to know before you start
               </h2>
               <p className="mt-3 text-muted-foreground">
-                Stock checking is designed to save repeated manual visits, but
-                availability can change quickly and should always be confirmed at checkout.
+                We can save you from refreshing the same page, but stock can
+                change quickly. Always check Amul Shop before you buy.
               </p>
             </div>
             <div className="grid gap-4 md:grid-cols-3">
               <Card>
                 <CardHeader>
                   <MapPin className="h-6 w-6 text-primary" aria-hidden="true" />
-                  <CardTitle className="text-xl">Pincode-specific checks</CardTitle>
+                  <CardTitle className="text-xl">Checks use your pincode</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm leading-6 text-muted-foreground">
-                  The service checks the product for the pincode attached to
-                  your monitor. If you move or want another delivery area, add a
-                  separate monitor with that pincode.
+                  Each alert checks one product for one delivery pincode. Create
+                  another alert if you want to check a different area.
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader>
                   <Clock3 className="h-6 w-6 text-primary" aria-hidden="true" />
-                  <CardTitle className="text-xl">Scheduled, not real-time</CardTitle>
+                  <CardTitle className="text-xl">Checks run on a schedule</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm leading-6 text-muted-foreground">
-                  Checks run at your chosen interval rather than continuously.
-                  An item may sell out before the next check or after an alert,
-                  so a notification is not a reservation or purchase guarantee.
+                  We do not check continuously. A product can sell out before
+                  you open the message, and an alert does not reserve stock.
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader>
                   <ShieldCheck className="h-6 w-6 text-primary" aria-hidden="true" />
-                  <CardTitle className="text-xl">You control your monitors</CardTitle>
+                  <CardTitle className="text-xl">You are in control</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm leading-6 text-muted-foreground">
-                  Sign in to view and delete your subscriptions. Your Google
-                  account identifies which monitors belong to you; your phone
-                  number is used to deliver the requested WhatsApp notification.
+                  Sign in to see or remove your alerts. We use your Google
+                  account to find your alerts and your phone number to send the
+                  WhatsApp message you asked for.
                 </CardContent>
               </Card>
             </div>
@@ -301,7 +295,7 @@ export default function Home() {
                 Watch the setup tutorial
               </h2>
               <p className="mt-3 text-muted-foreground">
-                See how to find a product URL, enter your pincode and create an alert.
+                See how to find a product link, add your pincode, and create an alert.
               </p>
             </div>
             <YouTubeEmbed
@@ -316,7 +310,7 @@ export default function Home() {
                 Amul stock checker FAQs
               </h2>
               <p className="mt-3 text-muted-foreground">
-                Common questions about product availability, pincodes and WhatsApp alerts.
+                Quick answers about products, pincodes, schedules, and WhatsApp messages.
               </p>
             </div>
             <div className="space-y-3">
@@ -335,16 +329,16 @@ export default function Home() {
             <Card className="bg-muted/50 text-center">
               <CardHeader>
                 <CardTitle id="final-cta-heading" className="text-2xl sm:text-3xl">
-                  Stop repeatedly checking Amul Shop for stock
+                  Ready to stop checking Amul Shop manually?
                 </CardTitle>
                 <CardDescription className="mx-auto max-w-2xl text-base">
-                  Add the product and delivery pincode you care about, choose a
-                  schedule, and let the checker notify you when availability is detected.
+                  Set up a free alert and we&apos;ll let you know when a scheduled
+                  check finds the product in stock.
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <Button asChild size="lg">
-                  <Link href="#stock-monitor">Create a free stock monitor</Link>
+                  <Link href="#stock-monitor">Create a stock alert</Link>
                 </Button>
               </CardContent>
             </Card>

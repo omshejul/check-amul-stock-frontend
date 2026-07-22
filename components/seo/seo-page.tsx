@@ -66,12 +66,12 @@ export function SeoPage({
 
           {showCta && (
             <aside className="mt-12 rounded-xl border bg-muted/50 p-6 text-center sm:p-8">
-              <h2 className="text-2xl font-bold">Create an Amul stock monitor</h2>
+              <h2 className="text-2xl font-bold">Create an Amul stock alert</h2>
               <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-                Add an Amul Shop product URL and delivery pincode, then choose when the service should check for availability.
+                Paste an Amul Shop link, add your pincode, and choose how often you want us to check.
               </p>
               <Button asChild size="lg" className="mt-5">
-                <Link href="/#stock-monitor">Start monitoring</Link>
+                <Link href="/#stock-monitor">Create an alert</Link>
               </Button>
             </aside>
           )}
