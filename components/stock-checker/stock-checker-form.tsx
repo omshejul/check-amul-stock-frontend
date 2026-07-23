@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -34,6 +34,14 @@ interface StockCheckerFormProps {
   onSubscriptionCreated?: () => void;
 }
 
+const CREATION_PROGRESS = [
+  { delay: 0, label: "Saving your alert..." },
+  { delay: 3000, label: "Opening the Amul product page..." },
+  { delay: 10000, label: "Checking the product for your pincode..." },
+  { delay: 20000, label: "Finishing your alert setup..." },
+  { delay: 35000, label: "Still working. Please keep this page open..." },
+];
+
 export default function StockCheckerForm({
   onSubscriptionCreated,
 }: StockCheckerFormProps) {
@@ -48,6 +56,24 @@ export default function StockCheckerForm({
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [detectingPincode, setDetectingPincode] = useState(false);
+  const [creationProgressIndex, setCreationProgressIndex] = useState(0);
+
+  useEffect(() => {
+    if (!loading) {
+      setCreationProgressIndex(0);
+      return;
+    }
+
+    const timers = CREATION_PROGRESS.slice(1).map((step, index) =>
+      window.setTimeout(() => {
+        setCreationProgressIndex(index + 1);
+      }, step.delay),
+    );
+
+    return () => {
+      timers.forEach(window.clearTimeout);
+    };
+  }, [loading]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -321,13 +347,31 @@ export default function StockCheckerForm({
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? (
                 <>
-                  <Loader className="mr-2 h-4 w-4 animate-spin" />
-                  Creating alert...
+                  <Loader
+                    className="mr-2 h-4 w-4 animate-spin"
+                    aria-hidden="true"
+                  />
+                  {CREATION_PROGRESS[creationProgressIndex].label}
                 </>
               ) : (
                 "Create alert"
               )}
             </Button>
+            {loading && (
+              <div
+                role="status"
+                aria-live="polite"
+                className="text-center text-muted-foreground"
+              >
+                <p className="sr-only">
+                  {CREATION_PROGRESS[creationProgressIndex].label}
+                </p>
+                <p className="text-xs">
+                  We run a first stock check and set up your WhatsApp
+                  confirmation. This usually takes 20 to 30 seconds.
+                </p>
+              </div>
+            )}
           </form>
         </CardContent>
       </Card>
