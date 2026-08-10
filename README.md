@@ -7,6 +7,12 @@ A modern Next.js 15 application for monitoring Amul product stock availability. 
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=flat-square&logo=tailwind-css)
 ![NextAuth.js](https://img.shields.io/badge/NextAuth.js-4.24.11-000000?style=flat-square)
 
+## ⚙️ Backend Repository
+
+Stock checks, scheduling, subscription storage, and WhatsApp notifications are handled by the companion backend service.
+
+### [→ View the Amul Stock Checker backend](https://github.com/omshejul/amul-check-stock)
+
 ## 📸 Screenshots
 
 ![Amul Stock Checker App Preview](./public/screenshots/app-preview.png)
