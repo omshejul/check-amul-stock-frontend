@@ -213,19 +213,34 @@ export default function SubscriptionsList({
                         <CardContent className="pt-6">
                           <div className="flex gap-4">
                             {/* Product Image */}
-                            <ProductImage
-                              imageUrl={subscription.image_url}
-                              productName={subscription.product_name}
-                              size={120}
-                              className="shrink-0"
-                            />
+                            <a
+                              href={subscription.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`Open ${subscription.product_name || "product"} on Amul Shop`}
+                              className="shrink-0 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                            >
+                              <ProductImage
+                                imageUrl={subscription.image_url}
+                                productName={subscription.product_name}
+                                size={120}
+                                className="transition-opacity hover:opacity-85"
+                              />
+                            </a>
 
                             {/* Product Info */}
                             <div className="flex-1 space-y-3 min-w-0">
                               {/* Product Name */}
                               {subscription.product_name && (
                                 <h3 className="font-semibold text-lg leading-tight line-clamp-2">
-                                  {subscription.product_name}
+                                  <a
+                                    href={subscription.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="no-underline underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                  >
+                                    {subscription.product_name}
+                                  </a>
                                 </h3>
                               )}
 
