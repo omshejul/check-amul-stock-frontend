@@ -45,6 +45,7 @@ export function initializeLogTelemetry() {
 }
 
 export async function recordError(error: unknown, operation: string, fields: Record<string, string | number> = {}) {
+  initializeLogTelemetry();
   const caught = error instanceof Error ? error : new Error(String(error));
   const safe = {
     type: sanitize(caught.name, 120),
