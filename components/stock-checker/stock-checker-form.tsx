@@ -14,16 +14,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { PhoneInput } from "@/components/PhoneInput";
 import { stockCheckerAPI } from "@/lib/services/stock-checker-api";
-import { DURATION_OPTIONS, DurationOption } from "@/types/stock-checker";
 import { AlertCircle, CheckCircle2, Loader, LocateFixed } from "lucide-react";
 import { blurFadeInUp, blurFadeInDown } from "@/lib/animations/variants";
 import { subtleBlur } from "@/lib/animations/transitions";
@@ -36,10 +28,8 @@ interface StockCheckerFormProps {
 
 const CREATION_PROGRESS = [
   { delay: 0, label: "Saving your alert..." },
-  { delay: 3000, label: "Opening the Amul product page..." },
-  { delay: 10000, label: "Checking the product for your pincode..." },
-  { delay: 20000, label: "Finishing your alert setup..." },
-  { delay: 35000, label: "Still working. Please keep this page open..." },
+  { delay: 3000, label: "Sending your WhatsApp confirmation..." },
+  { delay: 10000, label: "Finishing your alert setup..." },
 ];
 
 export default function StockCheckerForm({
@@ -50,7 +40,6 @@ export default function StockCheckerForm({
     productUrl: "",
     deliveryPincode: "",
     phoneNumber: "",
-    duration: "6hr" as DurationOption,
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -101,18 +90,17 @@ export default function StockCheckerForm({
         productUrl: formData.productUrl,
         deliveryPincode: formData.deliveryPincode,
         phoneNumber: formData.phoneNumber,
-        intervalMinutes: DURATION_OPTIONS[formData.duration],
+        intervalMinutes: 1,
       });
 
       posthog.capture('stock-monitor-subscription-created', {
         product_url: formData.productUrl,
         delivery_pincode: formData.deliveryPincode,
-        check_interval_minutes: DURATION_OPTIONS[formData.duration],
-        duration_option: formData.duration,
+        check_interval_minutes: 1,
       });
 
       setSuccess(
-        `Your alert is ready. We'll message you when a scheduled check finds stock.`,
+        `Your alert is ready. We'll check every minute and message you when stock is available.`,
       );
 
       // Reset form
@@ -120,7 +108,6 @@ export default function StockCheckerForm({
         productUrl: "",
         deliveryPincode: "",
         phoneNumber: "",
-        duration: "6hr",
       });
 
       // Notify parent component
@@ -133,8 +120,7 @@ export default function StockCheckerForm({
       posthog.capture('stock-monitor-subscription-failed', {
         product_url: formData.productUrl,
         delivery_pincode: formData.deliveryPincode,
-        check_interval_minutes: DURATION_OPTIONS[formData.duration],
-        duration_option: formData.duration,
+        check_interval_minutes: 1,
         error_message: errorMessage,
       });
     } finally {
@@ -289,28 +275,9 @@ export default function StockCheckerForm({
               </p>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="duration">How often should we check?</Label>
-              <Select
-                value={formData.duration}
-                onValueChange={(value: DurationOption) =>
-                  setFormData({ ...formData, duration: value })
-                }
-              >
-                <SelectTrigger id="duration">
-                  <SelectValue placeholder="Select interval" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1hr">Every 1 hour</SelectItem>
-                  <SelectItem value="6hr">Every 6 hours</SelectItem>
-                  <SelectItem value="12hr">Every 12 hours</SelectItem>
-                  <SelectItem value="24hr">Every 24 hours</SelectItem>
-                </SelectContent>
-              </Select>
-              <p className="text-xs text-muted-foreground">
-                More frequent checks may find a restock sooner
-              </p>
-            </div>
+            <p className="text-sm text-muted-foreground">
+              We check the Amul catalog for your delivery area every minute.
+            </p>
 
             <AnimatePresence mode="wait">
               {error && (
@@ -367,8 +334,7 @@ export default function StockCheckerForm({
                   {CREATION_PROGRESS[creationProgressIndex].label}
                 </p>
                 <p className="text-xs">
-                  We run a first stock check and set up your WhatsApp
-                  confirmation. This usually takes 20 to 30 seconds.
+                  We save your alert and send a WhatsApp confirmation.
                 </p>
               </div>
             )}

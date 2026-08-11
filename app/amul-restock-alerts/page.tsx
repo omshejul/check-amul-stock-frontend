@@ -19,7 +19,7 @@ export default function AmulRestockAlertsPage() {
         <h2>What a restock alert does</h2>
         <p>
           Each alert checks one Amul Shop product for one delivery pincode. We
-          check it on the schedule you choose. When we find stock, we send a
+          check it every minute. When we find stock, we send a
           message to the WhatsApp number you provided.
         </p>
         <p>
@@ -31,8 +31,7 @@ export default function AmulRestockAlertsPage() {
       <section className="space-y-4">
         <h2>When checks happen</h2>
         <p>
-          If you choose every six hours, we may not spot a restock until the next
-          check. Every hour is the most frequent option. Stock can come and go
+          We check the Amul catalog for your delivery area every minute. Stock can come and go
           between checks, so no schedule can catch every short restock.
         </p>
       </section>

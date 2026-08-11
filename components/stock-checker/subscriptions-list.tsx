@@ -135,18 +135,6 @@ export default function SubscriptionsList({
     }
   };
 
-  const formatInterval = (minutes: number): string => {
-    if (minutes === 60) return "hour";
-    if (minutes === 360) return "6 hours";
-    if (minutes === 720) return "12 hours";
-    if (minutes === 1440) return "24 hours";
-    if (minutes >= 60) {
-      const hours = minutes / 60;
-      return `${hours} hours`;
-    }
-    return `${minutes} minutes`;
-  };
-
   if (loading) {
     return (
       <Card className="w-full">
@@ -249,10 +237,7 @@ export default function SubscriptionsList({
                                 {getStatusBadge(subscription.status)}
                                 <Badge variant="outline">
                                   <Clock className="h-3 w-3 mr-1" />
-                                  Every{" "}
-                                  {formatInterval(
-                                    subscription.interval_minutes,
-                                  )}
+                                  Every minute
                                 </Badge>
                               </div>
 

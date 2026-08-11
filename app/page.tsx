@@ -49,7 +49,7 @@ const faqs = [
   {
     question: "How quickly will I receive a restock alert?",
     answer:
-      "You can ask us to check every 1, 6, 12, or 24 hours. We can only message you after a scheduled check finds stock, so your chosen schedule affects how soon you may hear from us.",
+      "We check the Amul catalog for your delivery area every minute. We message you after a check finds the product available.",
   },
   {
     question: "Will an alert guarantee that I can buy the product?",
@@ -127,8 +127,8 @@ export default function Home() {
                 Check Amul stock and get WhatsApp restock alerts
               </h1>
               <p className="mx-auto max-w-3xl text-lg text-muted-foreground sm:text-xl">
-                Paste an Amul Shop link, add your delivery pincode, and choose
-                how often we should check. We&apos;ll message you on WhatsApp when
+                Paste an Amul Shop link and add your delivery pincode. We check
+                every minute and message you on WhatsApp when
                 we find the product in stock.
               </p>
             </div>
@@ -172,8 +172,8 @@ export default function Home() {
                 },
                 {
                   icon: Clock3,
-                  title: "Choose a schedule",
-                  text: "Ask us to check every 1, 6, 12, or 24 hours. More frequent checks may spot a restock sooner.",
+                  title: "Checked every minute",
+                  text: "We check the Amul catalog for your delivery area every minute.",
                 },
                 {
                   icon: BellRing,
@@ -231,7 +231,7 @@ export default function Home() {
                   {[
                     "Track the exact product and pack size you want",
                     "Check stock for your delivery pincode",
-                    "Choose how often you want us to check",
+                    "We check every minute",
                     "Open Amul Shop straight from your alert",
                   ].map((item) => (
                     <div key={item} className="flex gap-3 rounded-lg bg-muted/60 p-3">

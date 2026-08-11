@@ -5,8 +5,7 @@ import { authOptions } from "@/lib/auth";
 const BACKEND_API_URL = process.env.BACKEND_API_URL;
 const BACKEND_API_BEARER_TOKEN = process.env.BACKEND_API_BEARER_TOKEN;
 
-// Valid duration options in minutes
-const VALID_INTERVALS = [60, 360, 720, 1440]; // 1hr, 6hr, 12hr, 24hr
+const CHECK_INTERVAL_MINUTES = 1;
 
 export async function POST(request: NextRequest) {
   try {
@@ -36,17 +35,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate intervalMinutes
-    if (
-      !body.intervalMinutes ||
-      !VALID_INTERVALS.includes(body.intervalMinutes)
-    ) {
-      return NextResponse.json(
-        { error: "Invalid check interval. Must be 1hr, 6hr, 12hr, or 24hr" },
-        { status: 400 },
-      );
-    }
-
     // Forward request to backend with bearer token
     const response = await fetch(`${BACKEND_API_URL}/checks`, {
       method: "POST",
@@ -56,6 +44,7 @@ export async function POST(request: NextRequest) {
       },
       body: JSON.stringify({
         ...body,
+        intervalMinutes: CHECK_INTERVAL_MINUTES,
         email: session.user.email, // Use email from session
       }),
     });

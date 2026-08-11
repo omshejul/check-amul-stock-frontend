@@ -159,7 +159,7 @@ check-amul-stock-frontend/
 1. **Sign In** - Authenticate with your Google account
 2. **Add Product** - Enter Amul product URL, delivery pincode, and phone number
 3. **Select Country** - Choose your country code with flag icons and auto-detection
-4. **Set Interval** - Choose check frequency: 1hr, 6hr, 12hr, or 24hr (default: 6hr)
+4. **Automatic checks** - The backend checks each active delivery area every minute
 5. **Get Notified** - Receive WhatsApp message when product is back in stock
 6. **Auto-Expire** - Subscription automatically expires after notification is sent
 7. **Manage Subscriptions** - View all subscriptions with status badges and delete active/expired ones
@@ -185,7 +185,7 @@ This frontend connects to the [Amul Stock Checker Service](https://github.com/om
 - `DELETE /api/stock-checker/checks/:id` - Remove subscription
 - `GET /api/stock-checker/health` - Check backend health
 
-The backend uses Puppeteer to check product availability and sends notifications via Node-RED webhook.
+The backend checks one Amul catalog per active delivery area each minute and sends notifications through a Node-RED webhook.
 
 ## 🎨 UI Components
 
@@ -200,7 +200,7 @@ This project uses [shadcn/ui](https://ui.shadcn.com/) for consistent, accessible
 - **Avatar** - User profile images with fallbacks
 - **Dropdown Menu** - Context menus and navigation
 - **Separator** - Visual content separation
-- **Select** - Dropdown selectors for intervals and countries
+- **Select** - Accessible dropdown selectors where needed
 - **PhoneInput** - Custom international phone input with country flags and auto-detection
 
 ## 🌓 Theme System
@@ -356,7 +356,7 @@ If you have any questions or need help:
 
 ## 🔗 Related Projects
 
-- [Amul Stock Checker Service](https://github.com/omshejul/amul-check-stock) - Backend API with Puppeteer stock checking
+- [Amul Stock Checker Service](https://github.com/omshejul/amul-check-stock) - Backend API with per-substore catalog checking
 
 ## 🌟 Show Your Support
 

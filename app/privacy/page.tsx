@@ -37,7 +37,7 @@ export default function PrivacyPage() {
           </li>
           <li>
             <strong className="text-foreground">Alert information:</strong> the Amul product
-            URL, delivery pincode, WhatsApp phone number, selected check interval,
+            URL, delivery pincode, WhatsApp phone number,
             creation time, and alert status are sent to the checking service.
           </li>
           <li>

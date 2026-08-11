@@ -18,7 +18,7 @@ const questions = [
   {
     question: "What does the stock checker track?",
     answer:
-      "Each alert checks one shop.amul.com product link for the six-digit delivery pincode you enter. It runs on the schedule you choose and sends a WhatsApp message when it finds stock.",
+      "Each alert checks one shop.amul.com product link for the six-digit delivery pincode you enter. It checks every minute and sends a WhatsApp message when it finds stock.",
   },
   {
     question: "Can I track Amul whey protein or high-protein drinks?",
@@ -38,7 +38,7 @@ const questions = [
   {
     question: "How often can stock be checked?",
     answer:
-      "You can choose every 1, 6, 12, or 24 hours. Checks are scheduled, not continuous. A shorter schedule may spot a restock sooner, but it cannot catch every brief stock window.",
+      "We check once per minute for each Amul delivery area with active alerts. Checks are scheduled, not continuous, so we cannot guarantee catching every brief stock window.",
   },
   {
     question: "Is the stock result real-time?",
@@ -63,7 +63,7 @@ const questions = [
   {
     question: "Why did I not receive a WhatsApp message?",
     answer:
-      "We may not have found stock yet, the next check may not have run, or the phone number may be wrong. Make sure the alert is active and check the country code, number, and schedule.",
+      "We may not have found stock yet, the next minute check may not have run, or the phone number may be wrong. Make sure the alert is active and check the country code and number.",
   },
   {
     question: "Is it free?",

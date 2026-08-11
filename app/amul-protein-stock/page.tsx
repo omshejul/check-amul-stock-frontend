@@ -47,10 +47,9 @@ export default function AmulProteinStockPage() {
       </section>
 
       <section className="space-y-4">
-        <h2>Choose how often to check</h2>
+        <h2>Checks run every minute</h2>
         <p>
-          Every hour is the most frequent option and may help with products that
-          sell quickly. You can also choose every 6, 12, or 24 hours. No schedule
+          We check the Amul catalog for your delivery area every minute. No schedule
           can guarantee that we will catch every short restock.
         </p>
       </section>

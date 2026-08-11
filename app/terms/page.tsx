@@ -71,7 +71,7 @@ export default function TermsPage() {
         <p>
           Google sign-in is used to identify your account. You are responsible
           for the security of that Google account and for the accuracy of the
-          product URL, pincode, phone number, and schedule you submit. Remove
+          product URL, pincode, and phone number you submit. Remove
           alerts that you no longer need and report suspected unauthorized
           access promptly.
         </p>

@@ -53,10 +53,9 @@ export default function HowItWorksPage() {
       </section>
 
       <section className="space-y-4">
-        <h2>4. Choose a check schedule</h2>
+        <h2>4. We check every minute</h2>
         <p>
-          You can ask us to check every 1, 6, 12, or 24 hours. Checking every
-          hour gives us more chances to spot a short restock. The checks run on a
+          We check the Amul catalog for your delivery area every minute. The checks run on a
           schedule, so they are not continuous or real-time.
         </p>
       </section>
@@ -86,7 +85,7 @@ export default function HowItWorksPage() {
           <li>Make sure the link opens one product on shop.amul.com.</li>
           <li>Use a valid six-digit Indian delivery pincode.</li>
           <li>Include the correct international country code for the WhatsApp number.</li>
-          <li>Remember that the next check depends on the schedule you chose.</li>
+          <li>Remember that checks run once per minute, not continuously.</li>
           <li>If Amul Shop changes the product page, remove the old alert and create a new one with the current link.</li>
         </ul>
       </section>
