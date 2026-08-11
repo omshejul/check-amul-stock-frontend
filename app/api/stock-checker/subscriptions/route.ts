@@ -1,6 +1,7 @@
 import {  NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { recordError } from "@/lib/server-observability";
 
 const BACKEND_API_URL = process.env.BACKEND_API_URL;
 const BACKEND_API_BEARER_TOKEN = process.env.BACKEND_API_BEARER_TOKEN;
@@ -15,7 +16,7 @@ export async function GET() {
 
     // Validate environment variables
     if (!BACKEND_API_URL || !BACKEND_API_BEARER_TOKEN) {
-      console.error("Missing required environment variables");
+      await recordError(new Error("Backend API configuration missing"), "frontend_configuration");
       return NextResponse.json(
         { error: "Server configuration error" },
         { status: 500 },
@@ -45,7 +46,7 @@ export async function GET() {
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error("Error fetching subscriptions:", error);
+    await recordError(error, "subscriptions_fetch_proxy");
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 },

@@ -5,6 +5,7 @@ import Providers from "@/components/providers/session-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { ClientErrorReporter } from "@/components/providers/client-error-reporter";
 
 const ibmPlexSans = IBM_Plex_Sans({
   variable: "--font-ibm-plex-sans",
@@ -116,6 +117,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Providers>
+            <ClientErrorReporter />
             <div className="relative flex min-h-screen flex-col">
               <Navbar />
               <main className="flex-1">{children}</main>

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { recordError } from "@/lib/server-observability";
 
 const BACKEND_API_URL = process.env.BACKEND_API_URL;
 const BACKEND_API_BEARER_TOKEN = process.env.BACKEND_API_BEARER_TOKEN;
@@ -32,7 +33,7 @@ export async function GET() {
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error("Error checking health:", error);
+    await recordError(error, "backend_health_proxy");
     return NextResponse.json(
       { status: "error", message: "Failed to connect to backend" },
       { status: 500 },
