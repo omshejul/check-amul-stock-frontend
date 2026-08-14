@@ -198,6 +198,8 @@ export default function StockCheckerForm({
                 onChange={(e) =>
                   setFormData({ ...formData, productUrl: e.target.value })
                 }
+                pattern="https://(www\.)?shop\.amul\.com/.*/product/.*"
+                title="Paste an individual product page from shop.amul.com"
                 required
               />
             </div>
