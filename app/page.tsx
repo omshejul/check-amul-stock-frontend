@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/card";
 import { createPageMetadata } from "@/lib/metadata";
 
-const siteUrl = "https://amul.omshejul.com";
+const siteUrl = "https://amulstock.com";
 
 export const metadata = createPageMetadata({
   title: "Amul Stock Checker | WhatsApp Restock Alerts",

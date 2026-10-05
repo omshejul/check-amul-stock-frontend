@@ -20,6 +20,17 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        // Keep existing API sessions/callbacks and robots available on the old host.
+        source: "/:path((?!api(?:/|$)|_next(?:/|$)|ingest(?:/|$)|robots\\.txt$).*)",
+        has: [{ type: "host", value: "amul.omshejul.com" }],
+        destination: "https://amulstock.com/:path",
+        statusCode: 301,
+      },
+    ];
+  },
   async rewrites() {
     return [
       {
