@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   creator: "Om Shejul",
   publisher: "Om Shejul",
   applicationName: "Amul Stock Checker",
-  metadataBase: new URL("https://amul.omshejul.com"),
+  metadataBase: new URL("https://amulstock.com"),
   icons: {
     icon: [
       { url: "/favicon.ico", type: "image/x-icon" },
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     description:
       "Check Amul product stock for your pincode and get a WhatsApp message when an item comes back in stock.",
     type: "website",
-    url: "https://amul.omshejul.com",
+    url: "https://amulstock.com",
     siteName: "Amul Stock Checker",
     images: [
       {

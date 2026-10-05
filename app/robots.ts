@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: ["/", "/api/auth/session$"],
       disallow: ["/api/", "/auth/"],
     },
-    sitemap: "https://amul.omshejul.com/sitemap.xml",
-    host: "https://amul.omshejul.com",
+    sitemap: "https://amulstock.com/sitemap.xml",
+    host: "https://amulstock.com",
   };
 }

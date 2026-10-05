@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const baseUrl = "https://amul.omshejul.com";
+const baseUrl = "https://amulstock.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Update these dates only when the corresponding page content changes.

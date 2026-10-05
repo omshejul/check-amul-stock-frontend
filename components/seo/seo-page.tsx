@@ -17,7 +17,7 @@ export function SeoPage({
   children,
   showCta = true,
 }: SeoPageProps) {
-  const url = `https://amul.omshejul.com${path}`;
+  const url = `https://amulstock.com${path}`;
   const breadcrumbData = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -26,7 +26,7 @@ export function SeoPage({
         "@type": "ListItem",
         position: 1,
         name: "Amul Stock Checker",
-        item: "https://amul.omshejul.com/",
+        item: "https://amulstock.com/",
       },
       {
         "@type": "ListItem",
