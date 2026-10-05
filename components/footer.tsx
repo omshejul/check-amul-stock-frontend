@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Github, Star, GitFork, Scale } from "lucide-react";
+import { Github, Star, GitFork, Scale, Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function Footer() {
   return (
@@ -34,6 +35,12 @@ export function Footer() {
             >
               Om Shejul
             </Link>
+            <Button asChild variant="ghost" size="sm">
+              <a href="mailto:amul@omshejul.com">
+                <Mail aria-hidden="true" />
+                Contact
+              </a>
+            </Button>
           </div>
 
           {/* Right side - GitHub Actions */}
