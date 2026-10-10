@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SeoPage } from "@/components/seo/seo-page";
 import { createPageMetadata } from "@/lib/metadata";
 
@@ -33,6 +34,13 @@ export default function AmulRestockAlertsPage() {
         <p>
           We check the Amul catalog for your delivery area every minute. Stock can come and go
           between checks, so no schedule can catch every short restock.
+        </p>
+        <p>
+          Waiting for whey protein, lassi, or buttermilk? Read our{" "}
+          <Link href="/amul-protein-stock" className="text-primary underline">
+            guide to Amul protein restock times and stock checks
+          </Link>
+          . Our check schedule does not predict when Amul will replenish stock.
         </p>
       </section>
 

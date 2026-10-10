@@ -47,6 +47,11 @@ const faqs = [
       "Yes. Each alert uses the six-digit delivery pincode you enter because Amul Shop stock can differ by location. Create another alert if you want to check a different area.",
   },
   {
+    question: "When does Amul protein restock?",
+    answer:
+      "We do not have a confirmed daily restock time for Amul protein products. Check your exact product and delivery pincode on Amul Shop. Our tool checks every minute and sends a WhatsApp message when it finds stock, but it cannot predict or reserve the next restock.",
+  },
+  {
     question: "How quickly will I receive a restock alert?",
     answer:
       "We check the Amul catalog for your delivery area every minute. We message you after a check finds the product available.",
@@ -225,6 +230,12 @@ export default function Home() {
                     Stock can differ from one delivery area to another. That is
                     why every alert includes a six-digit pincode. You can type it
                     yourself or use the location button to fill it in.
+                  </p>
+                  <p>
+                    <Link href="/amul-protein-stock" className="text-primary underline">
+                      When does Amul protein restock?
+                    </Link>{" "}
+                    Read how to check availability for your product and pincode.
                   </p>
                 </div>
                 <div className="space-y-3">
