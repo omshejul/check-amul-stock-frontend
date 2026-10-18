@@ -199,7 +199,7 @@ export default function SubscriptionsList({
                     >
                       <Card className="overflow-hidden">
                         <CardContent className="pt-6">
-                          <div className="flex gap-4">
+                          <div className="flex flex-col gap-4 sm:flex-row md:flex-col lg:flex-row">
                             {/* Product Image */}
                             <a
                               href={subscription.url}
