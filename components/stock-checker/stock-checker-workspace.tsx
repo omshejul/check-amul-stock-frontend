@@ -52,7 +52,7 @@ export default function StockCheckerWorkspace() {
   }
 
   return (
-    <div className="grid w-full gap-8 md:grid-cols-2">
+    <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
       <StockCheckerForm onSubscriptionCreated={handleSubscriptionCreated} />
       <SubscriptionsList refreshTrigger={refreshTrigger} />
     </div>
